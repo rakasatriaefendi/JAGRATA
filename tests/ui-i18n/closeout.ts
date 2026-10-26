@@ -1,0 +1,27 @@
+// Read-only closeout plus exact receipt candidate; never publishes installation state.
+import {readFile,writeFile,lstat} from 'node:fs/promises';
+import {join,resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {capture,request} from '../jagrata/preservation.ts';
+import {fingerprint,validate} from '../../installer/state.ts';
+const out=resolve('runtime/qa-ui-i18n-20261025'),root=resolve('.'),state=join(root,'runtime/console');
+const before=JSON.parse(await readFile(join(out,'before.json'),'utf8')),after=await capture();
+for(const [path,hash]of Object.entries(before.files))assert.equal(after.files[path],hash,'Preserved evidence changed: '+path);
+const active=(files:any)=>Object.fromEntries(Object.entries(files).filter(([path])=>path.startsWith('runtime/console/')));
+assert.deepEqual(active(after.files),active(before.files),'Actual installation file set changed');
+for(const key of ['containers','inventory','health','scripts'])assert.deepEqual(after[key],before[key],key+' changed');
+const owned=await validate(root,state,false);await owned.adapter.owned();
+assert.equal(owned.adapter.config.containerId,'eab16c3f3d6b699854c96103b1482dfa4fe946bc2301626b0614db1416e497b4');
+assert.equal(after.sourceGate,'SOURCE_FINGERPRINT_REVALIDATION_REQUIRED');
+const page=await request('/'),session=await request('/api/session');assert(page.tlsAuthorized&&session.tlsAuthorized&&page.status===200&&session.status===401);
+assert(page.body.includes('language-picker'));
+const raw=await readFile(join(state,'setup.json'),'utf8'),old=JSON.parse(raw),newFingerprint=await fingerprint(root);
+assert.equal(old.phase,'READY');assert.equal(old.fingerprint,'a10e566c5b94630017322d2f2c2d79f6605671383ebad5e61ef14a550cee45b6');
+const regex=/("fingerprint"\s*:\s*")[a-f0-9]{64}("?)/g;assert.equal([...raw.matchAll(regex)].length,1);const candidate=raw.replace(regex,(_m,a,b)=>a+newFingerprint+b);assert.deepEqual(JSON.parse(candidate),{...old,fingerprint:newFingerprint});
+const hash=(value:any)=>createHash('sha256').update(value).digest('hex');assert.equal(hash(raw),before.files['runtime/console/setup.json']);
+const report={state:'PENDING_SEPARATE_APPROVAL',target:join(state,'setup.json'),field:'fingerprint',previousFingerprint:old.fingerprint,reviewedSourceFingerprint:newFingerprint,expectedExistingSHA256:hash(raw),candidateSHA256:hash(candidate),sourceGate:after.sourceGate,application:after.health,tlsVerified:true,activeStateFiles:Object.keys(active(after.files)).length,baselineReadableFiles:Object.values(before.files).filter((value:any)=>/^[a-f0-9]{64}$/.test(value)).length,baselineUnreadable:Object.values(before.files).filter((value:any)=>value.startsWith('UNREADABLE')).length,baselineUnfollowedLinks:Object.values(before.files).filter((value:any)=>value.startsWith('LINK_NOT_FOLLOWED')).length,newTestArtifacts:Object.keys(after.files).filter(path=>!Object.hasOwn(before.files,path)).length,existingScriptsUnchanged:true,dependency:{name:'i18next',version:'26.5.10'},effect:'Fingerprint-only acceptance of reviewed UI/dependency source. No setup, dependency install, credential/TLS/configuration/ownership/registration changes, restart or Docker mutation. Recheck exact hashes and ownership before any separately approved publication.'};
+await writeFile(join(out,'after.json'),JSON.stringify(after,null,2)+'\n',{flag:'wx',mode:0o600});
+await writeFile(join(out,'setup-fingerprint-candidate.json'),candidate,{flag:'wx',mode:0o600});
+await writeFile(join(out,'fingerprint-review.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx',mode:0o600});
+console.log(JSON.stringify({result:'PASS_PRESERVATION',activeStateFiles:report.activeStateFiles,baselineReadableFiles:report.baselineReadableFiles,unreadable:report.baselineUnreadable,unfollowedLinks:report.baselineUnfollowedLinks,newTestArtifacts:report.newTestArtifacts,previousFingerprint:old.fingerprint,reviewedSourceFingerprint:newFingerprint,receiptApplied:false,sourceGate:after.sourceGate,application:after.health.state,pid:after.health.pid}));

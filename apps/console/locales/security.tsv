@@ -1,0 +1,71 @@
+security.localOnly	JAGRATA-local protection policy only. Not synchronized to CrowdSec AllowLists, parsers or firewalls. Register every public management endpoint and authorized infrastructure CIDR. Public addresses are never assumed safe to block.	Hanya kebijakan proteksi lokal JAGRATA. Tidak disinkronkan ke AllowLists CrowdSec, parser, atau firewall. Daftarkan setiap endpoint manajemen publik dan CIDR infrastruktur yang diizinkan. Alamat publik tidak pernah dianggap otomatis aman untuk diblokir.
+security.decisionWindow	Bounded cscli decisions list result; upstream may group decisions by target. Not an exhaustive inventory. Created-at is unavailable for individual decisions; alert time is separate. Expiry is estimated from remaining duration at observation.	Hasil cscli decisions list dibatasi; upstream dapat mengelompokkan keputusan menurut target. Ini bukan inventaris lengkap. Waktu pembuatan keputusan individual tidak tersedia; waktu peringatan ditampilkan terpisah. Waktu berakhir diperkirakan dari sisa durasi saat pengamatan.
+security.sameEngine	All sources belong to this installation's single engine. Saving does not change Docker. Changed mounts may require operator-approved recreation of the same service with its existing persistent volumes; this Console never performs it.	Semua sumber berada pada satu engine instalasi ini. Penyimpanan tidak mengubah Docker. Perubahan mount mungkin memerlukan pembuatan ulang layanan yang sama, memakai volume persisten yang ada dan disetujui operator; konsol ini tidak pernah melakukannya.
+security.localAdd	Add a JAGRATA-local protection entry. No CrowdSec allowlist update, alert suppression, decision change or firewall change.	Tambahkan entri proteksi lokal JAGRATA. Tidak ada pembaruan daftar izin CrowdSec, penekanan peringatan, perubahan keputusan, atau perubahan firewall.
+security.localLimit	Protects JAGRATA previews only. External bouncers and CrowdSec detection ignore this local policy.	Hanya melindungi pratinjau JAGRATA. Bouncer eksternal dan deteksi CrowdSec tidak menggunakan kebijakan lokal ini.
+security.rollback	Deactivate this exact JAGRATA-owned local allowlist entry. Preserve all audit records. No decision deletion or external reversal.	Nonaktifkan hanya entri daftar izin lokal milik JAGRATA ini. Simpan seluruh catatan audit. Tidak ada penghapusan keputusan atau pembalikan eksternal.
+security.rollbackRisk	Removes a local safeguard for future previews. Built-in management protection remains. External enforcement rollback is unavailable.	Menghapus proteksi lokal untuk pratinjau berikutnya. Proteksi manajemen bawaan tetap ada. Pemulihan penegakan eksternal tidak tersedia.
+security.create	Preview only: propose an internal ban decision for this IP. No decision will be created.	Hanya pratinjau: usulkan keputusan ban internal untuk IP ini. Tidak ada keputusan yang akan dibuat.
+security.revoke	Preview only: propose reversal of this exact decision. It is not JAGRATA-owned and cannot be deleted by JAGRATA.	Hanya pratinjau: usulkan pembalikan keputusan yang tepat ini. Keputusan ini bukan milik JAGRATA dan tidak dapat dihapus oleh JAGRATA.
+security.publicRisk	Public IP ownership and administrator access are unverified. A public address is not automatically safe to block.	Kepemilikan IP publik dan akses administrator belum diverifikasi. Alamat publik tidak otomatis aman untuk diblokir.
+security.enforcementRisk	A decision does not prove network enforcement. No supported enforcement adapter is enabled.	Keputusan tidak membuktikan penegakan jaringan. Tidak ada adaptor penegakan yang didukung yang diaktifkan.
+validation.protected	Protected target: local, management, infrastructure or allowlisted range.	Target terlindungi: rentang lokal, manajemen, infrastruktur, atau daftar izin.
+validation.confirm	Type the exact confirmation phrase.	Ketik frasa konfirmasi yang sama persis.
+validation.preview	Preview unavailable or actor mismatch. Refresh and preview again.	Pratinjau tidak tersedia atau pelaku tidak cocok. Perbarui dan buat pratinjau lagi.
+validation.text	Invalid text field.	Bidang teks tidak valid.
+validation.ip	Use a literal IP or canonical CIDR.	Gunakan IP literal atau CIDR kanonis.
+validation.badIp	Invalid IP address.	Alamat IP tidak valid.
+validation.cidr	Invalid CIDR.	CIDR tidak valid.
+validation.hostBits	CIDR must use its network address (host bits must be zero).	CIDR harus memakai alamat jaringan (bit host harus nol).
+validation.prefix	Invalid prefix.	Prefiks tidak valid.
+validation.mapped	IPv4-mapped IPv6 and embedded IPv4 must use IPv4 literals.	IPv6 yang memetakan atau menyisipkan IPv4 harus ditulis sebagai IP literal IPv4.
+validation.previewFields	Unsupported preview input.	Input pratinjau tidak didukung.
+validation.action	Unsupported typed action.	Jenis tindakan tidak didukung.
+validation.fields	Fields from another operation are rejected.	Bidang dari operasi lain ditolak.
+validation.exactAction	Exact Guard action ID required.	ID tindakan Guard yang tepat diperlukan.
+validation.owned	Only active Guard-created local policy actions can be reversed.	Hanya tindakan kebijakan lokal aktif yang dibuat Guard yang dapat dibalikkan.
+validation.duplicate	Target already allowlisted.	Target sudah ada dalam daftar izin.
+validation.entryLimit	Policy entry capacity reached.	Kapasitas entri kebijakan tercapai.
+validation.oneIp	Decision creation preview supports a single literal IP only.	Pratinjau pembuatan keputusan hanya mendukung satu IP literal.
+validation.exactDecision	Exact current decision ID and target required.	ID keputusan aktif dan target yang tepat diperlukan.
+validation.invalidConfirm	Invalid confirmation.	Konfirmasi tidak valid.
+validation.actor	Confirmation actor mismatch.	Pelaku konfirmasi tidak cocok.
+validation.changed	Policy changed.	Kebijakan berubah.
+validation.rollbackOwner	Rollback ownership/state mismatch.	Kepemilikan atau status pemulihan tidak cocok.
+validation.changedPreview	Policy changed during preview.	Kebijakan berubah selama pratinjau.
+validation.previewLimit	Too many pending previews.	Terlalu banyak pratinjau tertunda.
+validation.engine	Engine unavailable. No decisions substituted.	Engine tidak tersedia. Tidak ada keputusan pengganti.
+validation.observationExpired	Decision observation expired.	Pengamatan keputusan kedaluwarsa.
+validation.observationTimeout	Decision observation timed out. No automatic retry.	Batas waktu pengamatan keputusan terlampaui. Tidak ada percobaan ulang otomatis.
+validation.auditFailure	Request failed; durable failure audit unavailable. No engine/network action was attempted. Review local policy storage.	Permintaan gagal; audit kegagalan persisten tidak tersedia. Tidak ada tindakan engine/jaringan yang dicoba. Periksa penyimpanan kebijakan lokal.
+validation.writerBusy	Policy writer busy. No automatic retry.	Penulis kebijakan sibuk. Tidak ada percobaan ulang otomatis.
+validation.queue	Queued request expired.	Permintaan dalam antrean kedaluwarsa.
+validation.lock	Policy writer locked. Review state; no automatic retry or stale-lock deletion.	Penulis kebijakan terkunci. Periksa status; tidak ada percobaan ulang atau penghapusan lock otomatis.
+validation.auditCapacity	Audit capacity reached. Preserve and archive offline before further actions.	Kapasitas audit tercapai. Simpan dan arsipkan secara offline sebelum tindakan berikutnya.
+validation.symlinks	Symlinks and reparse points are not supported.	Symlink dan reparse point tidak didukung.
+validation.parent	Invalid parent directory.	Direktori induk tidak valid.
+validation.regular	Select a regular file.	Pilih file reguler.
+validation.alias	Path alias rejected.	Alias jalur ditolak.
+validation.settings	Source settings required.	Pengaturan sumber diperlukan.
+validation.sourceFields	Unsupported source settings. Arbitrary YAML and commands are rejected.	Pengaturan sumber tidak didukung. YAML dan perintah bebas ditolak.
+validation.name	Use a display name of 1–80 characters.	Gunakan nama tampilan 1–80 karakter.
+validation.connector	Only SSH and Nginx file sources are supported.	Hanya sumber file SSH dan Nginx yang didukung.
+validation.path	Choose one absolute local file path without traversal or wildcards.	Pilih satu jalur file lokal absolut tanpa traversal atau wildcard.
+validation.windowsPath	UNC, device paths, alternate streams and ambiguous Windows paths are rejected.	Jalur UNC, perangkat, alternate stream, dan jalur Windows ambigu ditolak.
+validation.consent	Explicit file-selection consent is required.	Persetujuan pemilihan file secara eksplisit diperlukan.
+validation.inode	Filesystem cannot provide a stable file identity.	Filesystem tidak dapat menyediakan identitas file yang stabil.
+validation.fileVerified	Regular local file verified. Contents were not read. Docker access, format and parsing require operator apply and engine evidence.	File lokal reguler terverifikasi. Isinya tidak dibaca. Akses Docker, format, dan penguraian memerlukan penerapan operator dan bukti engine.
+validation.fileMissing	Selected file is missing or cannot be inspected. Check its exact path and permissions.	File terpilih tidak ada atau tidak dapat diperiksa. Periksa jalur dan izinnya.
+validation.registryRevision	Registry revision required.	Revisi registri diperlukan.
+validation.configBusy	Configuration writer is busy. Retry later.	Penulis konfigurasi sibuk. Coba lagi nanti.
+validation.configExpired	Configuration write expired. Refresh and retry.	Penulisan konfigurasi kedaluwarsa. Perbarui dan coba lagi.
+validation.configLocked	Another configuration write is pending. Retry after reviewing the source list.	Penulisan konfigurasi lain sedang berlangsung. Coba lagi setelah meninjau daftar sumber.
+validation.configChanged	Configuration changed. Refresh before saving.	Konfigurasi berubah. Perbarui sebelum menyimpan.
+validation.sourceId	Invalid source ID.	ID sumber tidak valid.
+validation.sourceMissing	Source not found.	Sumber tidak ditemukan.
+validation.removal	Confirm removal explicitly.	Konfirmasikan penghapusan secara eksplisit.
+validation.existingFile	This file already has an acquisition.	File ini sudah memiliki akuisisi.
+validation.existingIdentity	This file identity already has an acquisition (hard-link alias).	Identitas file ini sudah memiliki akuisisi (alias hard-link).
+validation.sourceLimit	Registry limit reached (64 including retained removal records).	Batas registri tercapai (64 termasuk catatan penghapusan tersimpan).
+validation.required	This field is required.	Bidang ini wajib diisi.
+validation.invalid	Review this field's value.	Periksa nilai bidang ini.

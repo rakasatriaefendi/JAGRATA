@@ -1,0 +1,8 @@
+# CrowdSec Guard — Web access acquisition (CS-00 lab)
+# Reads the synthetic nginx-format access log mounted read-only inside the container.
+source: file
+poll_without_inotify: true
+filenames:
+  - /lab/logs/web/access.log
+labels:
+  type: nginx

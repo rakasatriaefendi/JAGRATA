@@ -1,0 +1,319 @@
+brand.console	SECURITY CONSOLE	KONSOL KEAMANAN
+brand.title	JAGRATA · Security Console	JAGRATA · Konsol Keamanan
+brand.private	YOUR PRIVATE SECURITY WORKSPACE	RUANG KEAMANAN PRIVAT ANDA
+brand.tagline	Always Awake.	Always Awake.
+auth.signIn	Sign in to JAGRATA	Masuk ke JAGRATA
+auth.intro	One installation. Your evidence.	Satu instalasi. Bukti milik Anda.
+auth.detection	Detection only, with no automatic remediation.	Hanya deteksi, tanpa remediasi otomatis.
+auth.admin	Administrator	Administrator
+auth.password	Password	Kata sandi
+auth.submit	Sign in securely	Masuk dengan aman
+auth.existing	Use your existing installation administrator. Account setup is managed locally.	Gunakan administrator instalasi Anda. Pengaturan akun dikelola secara lokal.
+auth.signing	Signing in…	Sedang masuk…
+auth.expired	Your session expired. Sign in again.	Sesi Anda berakhir. Silakan masuk kembali.
+auth.signedOut	Signed out.	Anda telah keluar.
+auth.invalid	Invalid username or password	Nama pengguna atau kata sandi salah
+auth.format	Invalid credentials format	Format kredensial tidak valid
+auth.required	Authentication required	Autentikasi diperlukan
+auth.loginRejected	Login request rejected	Permintaan masuk ditolak
+auth.busy	Login busy. Retry later.	Layanan masuk sibuk. Coba lagi nanti.
+auth.rate	Too many login attempts. Retry later.	Terlalu banyak percobaan masuk. Coba lagi nanti.
+common.skip	Skip to workspace	Lewati ke ruang kerja
+common.workspace	Workspace	Ruang kerja
+common.primaryNav	Primary navigation	Navigasi utama
+common.mobileNav	Mobile navigation	Navigasi seluler
+common.collapse	Collapse	Ciutkan
+common.collapseNav	Collapse navigation	Ciutkan navigasi
+common.openNav	Open navigation	Buka navigasi
+common.closeNav	Close navigation	Tutup navigasi
+common.refresh	Refresh	Perbarui
+common.refreshIcon	↻ Refresh	↻ Perbarui
+common.refreshTitle	Read current engine observations	Baca pengamatan engine terkini
+common.theme	Switch color theme	Ganti tema warna
+common.themeDark	Switch to dark theme	Ganti ke tema gelap
+common.themeLight	Switch to light theme	Ganti ke tema terang
+common.signOut	Sign out	Keluar
+common.signOutTitle	End this session	Akhiri sesi ini
+common.language	Language	Bahasa
+common.cancel	Cancel	Batal
+common.close	Close	Tutup
+common.closeIcon	Close ✕	Tutup ✕
+common.retry	Retry	Coba lagi
+common.unavailable	Unavailable	Tidak tersedia
+common.unknown	Unknown	Tidak diketahui
+common.notFound	Not found	Tidak ditemukan
+common.localSecurity	LOCAL SECURITY / DETECTION ONLY	KEAMANAN LOKAL / HANYA DETEKSI
+common.detectionOnly	Detection Only	Hanya Deteksi
+common.selfHosted	Self-hosted security.	Keamanan yang dihosting sendiri.
+common.evidenceFirst	Evidence before action.	Bukti sebelum tindakan.
+common.localWorkspace	Local security workspace.	Ruang keamanan lokal.
+common.footer	Decisions are records. JAGRATA does not enable network enforcement.	Keputusan adalah catatan internal. JAGRATA tidak mengaktifkan penegakan jaringan.
+nav.overview	Security Overview	Ringkasan Keamanan
+nav.alerts	Alerts Explorer	Penjelajah Peringatan
+nav.health	Engine Health	Kesehatan Engine
+nav.sources	Data Sources	Sumber Log
+nav.remediation	Remediation Center	Pusat Remediasi
+state.running	running	Berjalan
+state.stopped	stopped	Berhenti
+state.live	LIVE	LIVE · Pembacaan langsung
+state.stale	STALE	STALE · Pengamatan kedaluwarsa
+state.observed	OBSERVED	OBSERVED · Teramati
+state.unavailable	UNAVAILABLE	UNAVAILABLE · Tidak tersedia
+state.notVerified	NOT VERIFIED	NOT VERIFIED · Belum diverifikasi
+state.historical	HISTORICAL	HISTORICAL · Historis
+state.historicalEvidence	HISTORICAL EVIDENCE	BUKTI HISTORIS
+state.draft	DRAFT	DRAFT · Draf
+state.validated	VALIDATED	VALIDATED · Jalur tervalidasi
+state.applied	APPLIED	APPLIED · Konfigurasi diterapkan
+state.disabled	DISABLED	DISABLED · Dinonaktifkan
+state.removed	REMOVED	REMOVED · Dihapus dari konfigurasi
+state.error	ERROR	ERROR · Kesalahan
+state.active	ACTIVE_RECORD	ACTIVE_RECORD · Catatan aktif
+state.expired	EXPIRED_RECORD	EXPIRED_RECORD · Catatan kedaluwarsa
+state.simulated	SIMULATED	SIMULATED · Simulasi
+overview.description	Understand detection activity. Investigate the evidence before taking action.	Pahami aktivitas deteksi. Periksa bukti sebelum mengambil tindakan.
+overview.engine	ENGINE	ENGINE
+overview.processNote	Observed process state	Status proses saat diamati
+overview.alertWindow	LOCAL ALERT WINDOW	JENDELA PERINGATAN LOKAL
+overview.partial	Partial · latest 200	Sebagian · 200 terbaru
+overview.bounded	Bounded to latest 200	Dibatasi ke 200 terbaru
+overview.scenarios	SCENARIOS OBSERVED	SKENARIO TERAMATI
+overview.distinct	Distinct in alert window	Skenario unik dalam jendela peringatan
+overview.enforcement	ENFORCEMENT	PENEGAKAN
+overview.notManaged	Not managed	Tidak dikelola
+overview.noBlocking	JAGRATA has no blocking controls	JAGRATA tidak memiliki kontrol pemblokiran
+overview.activity	Detection activity · UTC dates	Aktivitas deteksi · tanggal UTC
+overview.distribution	Scenario distribution	Distribusi skenario
+overview.recent	Recent detections	Deteksi terbaru
+overview.explore	Explore alerts →	Jelajahi peringatan →
+overview.noSeries	No scenarios represented in the observed alert window.	Tidak ada skenario dalam jendela peringatan yang diamati.
+overview.noActivity	No activity in this observation window.	Tidak ada aktivitas dalam jendela pengamatan ini.
+overview.unavailable	Stored alert observation unavailable. Counts are unknown.	Pengamatan peringatan tersimpan tidak tersedia. Jumlahnya tidak diketahui.
+overview.lowData	Limited observation window; bars show recorded counts, not a continuous traffic rate.	Jendela pengamatan terbatas; batang menunjukkan jumlah catatan, bukan laju lalu lintas berkelanjutan.
+alerts.description	Inspect authoritative local alert records. Severity is not inferred.	Periksa catatan peringatan lokal dari engine. Tingkat keparahan tidak diasumsikan.
+alerts.unavailableTitle	Alerts unavailable	Peringatan tidak tersedia
+alerts.unavailableDescription	The engine is stopped or no authoritative alert read succeeded. Counts are unknown.	Engine berhenti atau pembacaan peringatan dari engine belum berhasil. Jumlahnya tidak diketahui.
+alerts.search	Search source, scenario or ID	Cari sumber, skenario, atau ID
+alerts.placeholder	Search evidence…	Cari bukti…
+alerts.scenario	Scenario	Skenario
+alerts.all	All scenarios	Semua skenario
+alerts.sort	Sort	Urutkan
+alerts.newest	Newest detected	Deteksi terbaru
+alerts.oldest	Oldest detected	Deteksi terlama
+alerts.id	Alert ID	ID peringatan
+alerts.perPage	Per page	Per halaman
+alerts.reset	Reset filters	Atur ulang filter
+alerts.select	Select	Pilih
+alerts.record	Alert / scenario	Peringatan / skenario
+alerts.source	Source	Sumber
+alerts.detectedAt	Detected at	Waktu deteksi
+alerts.detected	Detected	Terdeteksi
+alerts.events	Events	Kejadian
+alerts.evidence	Evidence	Bukti
+alerts.empty	No matching alerts	Tidak ada peringatan yang cocok
+alerts.emptyDescription	No matching records in this bounded observation. This does not prove there were no attacks.	Tidak ada catatan yang cocok dalam pengamatan terbatas ini. Ini tidak membuktikan bahwa tidak ada serangan.
+alerts.clear	Clear selection	Hapus pilihan
+alerts.previous	Previous	Sebelumnya
+alerts.next	Next	Berikutnya
+alerts.copy	Copy Source IP	Salin IP Sumber
+alerts.copyFailed	Copy failed. Select the source IP and copy it manually.	Penyalinan gagal. Pilih IP sumber lalu salin secara manual.
+alerts.close	Close alert	Tutup peringatan
+alerts.loading	Loading alert	Memuat peringatan
+alerts.detail	Alert detail	Detail peringatan
+alerts.metadata	Metadata	Metadata
+alerts.context	Context	Konteks
+alerts.evidenceUnavailable	Evidence unavailable	Bukti tidak tersedia
+alerts.eventCount	Alert events	Kejadian pada peringatan
+alerts.version	Scenario version	Versi skenario
+alerts.eventEvidence	Available event evidence	Bukti kejadian yang tersedia
+alerts.normalized	Normalized allowlisted record; no engine credentials or raw configuration.	Catatan ternormalisasi dengan bidang yang diizinkan; tanpa kredensial engine atau konfigurasi mentah.
+alerts.distinction	Detection, decision, enforcement	Deteksi, keputusan, penegakan
+alerts.storedDecisions	Stored decisions	Keputusan tersimpan
+alerts.noDecisions	No decisions returned.	Tidak ada keputusan yang dikembalikan.
+alerts.boundary	JAGRATA is read only. Decision changes and network enforcement are disabled. Local protection policy is managed in Remediation Center. External enforcement status is unverified.	JAGRATA hanya membaca engine. Perubahan keputusan dan penegakan jaringan dinonaktifkan. Kebijakan proteksi lokal dikelola di Pusat Remediasi. Status penegakan eksternal belum diverifikasi.
+health.description	Process state and successful reads are observations, not guarantees of protection.	Status proses dan pembacaan yang berhasil merupakan pengamatan, bukan jaminan perlindungan.
+health.process	PROCESS	PROSES
+health.owned	Ownership verified	Kepemilikan diverifikasi
+health.api	LOCAL API	API LOKAL
+health.reachable	Reachable	Dapat diakses
+health.apiNote	cscli alert read result	Hasil pembacaan peringatan cscli
+health.observation	OBSERVATION	PENGAMATAN
+health.manual	Refresh manually	Perbarui secara manual
+health.scenarios	SCENARIOS	SKENARIO
+health.enabled	Enabled in installed hub	Diaktifkan di Hub terpasang
+health.last	Last engine observation	Pengamatan engine terakhir
+health.retrieved	Stored alerts were retrieved from the engine. Their timestamps remain historical.	Peringatan tersimpan telah dibaca dari engine. Waktunya tetap merupakan bukti historis.
+health.noRead	No successful alert read. Current detection health cannot be established.	Pembacaan peringatan belum berhasil. Kesehatan deteksi saat ini belum dapat dipastikan.
+health.acquisition	Acquisition counters	Penghitung akuisisi
+health.scenarioCounters	Scenario counters	Penghitung skenario
+health.noAcquisition	No acquisition counters returned.	Tidak ada penghitung akuisisi yang dikembalikan.
+health.noScenario	No scenario counters returned.	Tidak ada penghitung skenario yang dikembalikan.
+health.parsers	Parser observations	Pengamatan parser
+health.metricsMissing	Metrics unavailable. Source and parser health are unknown.	Metrik tidak tersedia. Kesehatan sumber dan parser tidak diketahui.
+health.installed	Installed scenarios	Skenario terpasang
+health.expand	Expand a series to inspect its counters. Cumulative counters do not establish recent log activity.	Buka seri untuk melihat penghitungnya. Penghitung kumulatif tidak membuktikan aktivitas log terbaru.
+health.reads	reads	Dibaca
+health.parsed	parsed	Terurai
+health.unparsed	unparsed	Tidak terurai
+health.hits	hits	Cocok
+health.pour	pour	Masuk skenario
+health.poured	poured	Masuk skenario
+health.overflow	overflow	Overflow
+health.overflows	overflows	Overflow
+health.current	curr_count	Jumlah saat ini
+health.instantiation	instantiation	Instansiasi
+health.underflow	underflow	Underflow
+sources.description	Configure selected files. Verify parsing from engine evidence after an operator-approved deployment.	Atur file yang dipilih. Verifikasi penguraian dari bukti engine setelah penerapan yang disetujui operator.
+sources.add	+ Add source	+ Tambah sumber
+sources.retry	Retry sources	Coba baca sumber lagi
+sources.loading	Loading sources	Memuat sumber
+sources.file	Source / file	Sumber / file
+sources.status	Type / status	Jenis / status
+sources.processing	Processing evidence	Bukti pemrosesan
+sources.manage	Manage	Kelola
+sources.noEvidence	No recent evidence	Tidak ada bukti terbaru
+sources.pending	Pending operator apply: engine retains a file mount.	Menunggu penerapan operator: engine masih memiliki mount file.
+sources.lastActivity	Last activity: unknown	Aktivitas terakhir: tidak diketahui
+sources.diagnostics	Parser diagnostics	Diagnostik parser
+sources.parserUnknown	Parser counters unavailable.	Penghitung parser tidak tersedia.
+sources.edit	Edit	Ubah
+sources.disable	Disable	Nonaktifkan
+sources.remove	Remove	Hapus
+sources.empty	No configured sources	Tidak ada sumber terdaftar
+sources.emptyDescription	Add one SSH authentication or Nginx access log file. JAGRATA does not discover private logs.	Tambahkan satu file log autentikasi SSH atau akses Nginx. JAGRATA tidak menemukan log privat secara otomatis.
+sources.registryDistinction	This list contains only JAGRATA-managed registrations. Engine acquisition counters may include independently configured paths. An empty list does not mean acquisition failed; no engine source has been adopted or changed.	Daftar ini hanya berisi registrasi yang dikelola JAGRATA. Penghitung akuisisi engine dapat mencakup jalur yang diatur terpisah. Daftar kosong tidak berarti akuisisi gagal; tidak ada sumber engine yang diadopsi atau diubah.
+sources.apply	Apply and verify	Terapkan dan verifikasi
+sources.stepOne	Select a single local file and validate its path. Validation does not read its contents or prove its format.	Pilih satu file lokal dan validasi jalurnya. Validasi tidak membaca isinya atau membuktikan formatnya.
+sources.stepTwo	Save a draft. Ask the local operator to generate and review a source deployment plan using the source setup guide.	Simpan draf. Minta operator lokal membuat dan meninjau rencana penerapan sumber menggunakan panduan pengaturan sumber.
+sources.stepThree	The operator approves any new mounts or engine interruption. This Console never starts or restarts Docker.	Operator menyetujui mount baru atau interupsi engine. Konsol ini tidak pernah memulai atau memulai ulang Docker.
+sources.stepFour	Append authorized test events after the source is active, refresh, and inspect per-file read/parsed counters. Counters are cumulative; parser totals are engine-wide.	Tambahkan kejadian uji yang diizinkan setelah sumber aktif, perbarui, lalu periksa penghitung baca/urai per file. Penghitung bersifat kumulatif; total parser mencakup seluruh engine.
+sources.supported	Supported: syslog SSH authentication and Nginx combined access logs. Apache, Docker logs, journald, syslog server, cloud and remote connectors are not implemented. Copying this folder does not migrate engine volumes. There is no silent engine registration or Docker mutation.	Didukung: log autentikasi SSH syslog dan akses Nginx combined. Konektor Apache, log Docker, journald, server syslog, cloud, dan jarak jauh belum diimplementasikan. Menyalin folder ini tidak memigrasikan volume engine. Tidak ada registrasi engine tersembunyi atau mutasi Docker.
+sources.platformSupport	Supported: syslog SSH authentication and Nginx combined access logs. Apache, Docker logs, journald, syslog server and Windows Event Logs are not implemented. A Windows path needs an explicit Docker Desktop mount.	Didukung: log autentikasi SSH syslog dan akses Nginx combined. Apache, log Docker, journald, server syslog, dan Windows Event Logs belum diimplementasikan. Jalur Windows memerlukan mount Docker Desktop yang eksplisit.
+sources.addTitle	Add source	Tambah sumber
+sources.editTitle	Edit source	Ubah sumber
+sources.close	Close source configuration	Tutup konfigurasi sumber
+sources.selectedOnly	One explicitly selected file. Saving creates configuration only.	Hanya satu file yang dipilih secara eksplisit. Penyimpanan hanya membuat konfigurasi.
+sources.displayName	Display name	Nama tampilan
+sources.type	Source type	Jenis sumber
+sources.absolutePath	Absolute local file path	Jalur absolut file lokal
+sources.pathPlaceholder	C:/logs/auth.log or /var/log/auth.log	C:/logs/auth.log atau /var/log/auth.log
+sources.paste	Paste an exact file path. No directory browsing, wildcard imports or log-content upload. Docker sees a different container path.	Tempel jalur file yang tepat. Tidak ada penelusuran direktori, impor wildcard, atau unggah isi log. Docker melihat jalur container yang berbeda.
+sources.include	Include in the next approved deployment	Sertakan dalam penerapan berikutnya yang disetujui
+sources.consent	I authorize JAGRATA to inspect this selected file's metadata and prepare read-only engine access.	Saya mengizinkan JAGRATA memeriksa metadata file terpilih ini dan menyiapkan akses engine hanya-baca.
+sources.details	Parser and deployment details	Detail parser dan penerapan
+sources.privacy	Log files can contain personal data. JAGRATA does not copy file contents. Single-file bind mounts do not follow rotation to a new inode; review mounts after rotation.	File log dapat berisi data pribadi. JAGRATA tidak menyalin isi file. Bind mount satu file tidak mengikuti rotasi ke inode baru; tinjau mount setelah rotasi.
+sources.validate	Validate path	Validasi jalur
+sources.save	Save configuration	Simpan konfigurasi
+sources.collection	Collection	Koleksi
+sources.parser	Parser	Parser
+sources.typeLabel	Type label	Label jenis
+sources.installation	Installation	Instalasi
+sources.saving	Saving configuration...	Menyimpan konfigurasi...
+sources.validating	Validating selected path...	Memvalidasi jalur terpilih...
+sources.saved	Source configuration saved. Engine access is pending operator approval.	Konfigurasi sumber tersimpan. Akses engine menunggu persetujuan operator.
+sources.validated	Local file validated. Ingestion is not yet verified.	File lokal tervalidasi. Ingesti belum diverifikasi.
+sources.removeTitle	Remove configuration	Hapus konfigurasi
+sources.disableTitle	Disable source	Nonaktifkan sumber
+sources.cancelAction	Cancel source action	Batalkan tindakan sumber
+sources.removalNotice	Only the saved configuration changes. The file is preserved. A running engine can continue reading until an operator applies the removal.	Hanya konfigurasi tersimpan yang berubah. File tetap disimpan. Engine yang berjalan dapat terus membaca sampai operator menerapkan penghapusan.
+sources.confirmRemove	Confirm remove	Konfirmasi hapus
+sources.confirmDisable	Confirm disable	Konfirmasi nonaktifkan
+sources.savingShort	Saving...	Menyimpan...
+sources.removed	Configuration removed. Engine removal requires operator apply.	Konfigurasi dihapus. Penghapusan pada engine memerlukan penerapan operator.
+sources.disabled	Source disabled in configuration. Operator apply is pending.	Sumber dinonaktifkan pada konfigurasi. Penerapan operator masih tertunda.
+sources.ssh	SSH authentication file	File autentikasi SSH
+sources.nginx	Nginx access file	File akses Nginx
+sources.sshFormat	Syslog SSH authentication records (sshd). Example location: /var/log/auth.log or /var/log/secure.	Catatan autentikasi SSH syslog (sshd). Contoh lokasi: /var/log/auth.log atau /var/log/secure.
+sources.nginxFormat	Nginx combined access log. Example location: /var/log/nginx/access.log. Custom formats need separate parser validation.	Log akses Nginx combined. Contoh lokasi: /var/log/nginx/access.log. Format khusus memerlukan validasi parser terpisah.
+sources.engineWide	Engine-wide; not attributable to this file alone	Mencakup seluruh engine; tidak dapat diatribusikan hanya ke file ini
+remediation.description	Review internal decisions and manage local safeguards. No automatic blocking.	Tinjau keputusan internal dan kelola proteksi lokal. Tidak ada pemblokiran otomatis.
+remediation.separation	Detection → Internal decision → Enforcement	Deteksi → Keputusan internal → Penegakan
+remediation.evidence	Alerts describe suspicious behavior. Decisions are internal records. Enforcement:	Peringatan menggambarkan perilaku mencurigakan. Keputusan adalah catatan internal. Penegakan:
+remediation.noAdapter	. No enforcement adapter is enabled.	. Tidak ada adaptor penegakan yang diaktifkan.
+remediation.refresh	Refresh observations	Perbarui pengamatan
+remediation.internal	Internal decisions	Keputusan internal
+remediation.decisionTarget	Decision / target	Keputusan / target
+remediation.originScenario	Origin / scenario	Asal / skenario
+remediation.statusTime	Status / time	Status / waktu
+remediation.enforcement	Enforcement	Penegakan
+remediation.owned	JAGRATA owned	Milik JAGRATA
+remediation.notOwned	Not JAGRATA owned	Bukan milik JAGRATA
+remediation.unknownCreation	Decision creation time: unknown	Waktu pembuatan keputusan: tidak diketahui
+remediation.noNetworkBlock	No verified network block	Tidak ada pemblokiran jaringan yang terverifikasi
+remediation.reversal	Preview reversal	Pratinjau pembalikan
+remediation.empty	No decision records returned in this bounded read. Stored alerts may remain.	Tidak ada catatan keputusan yang dikembalikan dalam pembacaan terbatas ini. Peringatan tersimpan mungkin masih ada.
+remediation.protection	Local protection allowlist	Daftar izin proteksi lokal
+remediation.add	Add protection	Tambah proteksi
+remediation.builtins	Built-in protected ranges	Rentang terlindungi bawaan
+remediation.rollback	Preview rollback	Pratinjau pemulihan
+remediation.noAdditional	No additional local protections. Built-in local and private ranges remain protected.	Tidak ada proteksi lokal tambahan. Rentang lokal dan privat bawaan tetap terlindungi.
+remediation.previewTitle	Dry-run action preview	Pratinjau tindakan tanpa eksekusi
+remediation.previewDescription	Propose an internal decision for one IP. Protected targets are rejected. Public ownership remains unverified. Applying a decision is unavailable in this release.	Usulkan keputusan internal untuk satu IP. Target terlindungi ditolak. Kepemilikan IP publik belum diverifikasi. Penerapan keputusan tidak tersedia dalam versi ini.
+remediation.exactIp	Exact IP	IP yang tepat
+remediation.previewOnly	Preview only	Hanya pratinjau
+remediation.audit	Audit trail	Jejak audit
+remediation.noActions	No recorded actions.	Tidak ada tindakan tercatat.
+remediation.actor	Actor	Pelaku
+remediation.time	Time	Waktu
+remediation.target	Target	Target
+remediation.correlation	Correlation ID	ID korelasi
+remediation.reverses	Reverses	Membalikkan
+remediation.addTitle	Add local protection	Tambah proteksi lokal
+remediation.cancel	Cancel protection	Batalkan proteksi
+remediation.protectNotice	Protect an administrator endpoint, infrastructure address or management CIDR in JAGRATA. This does not synchronize a CrowdSec allowlist.	Lindungi endpoint administrator, alamat infrastruktur, atau CIDR manajemen di JAGRATA. Ini tidak menyinkronkan daftar izin CrowdSec.
+remediation.cidr	IP or canonical network CIDR	IP atau CIDR jaringan kanonis
+remediation.reason	Reason / asset	Alasan / aset
+remediation.review	Review protection	Tinjau proteksi
+remediation.confirmTitle	Confirm local policy	Konfirmasi kebijakan lokal
+remediation.dryRun	Dry-run only	Tanpa eksekusi
+remediation.close	Close preview	Tutup pratinjau
+remediation.operation	Operation	Operasi
+remediation.exactTarget	Exact target	Target yang tepat
+remediation.expires	Expires	Berakhir
+remediation.proposed	Exact proposed operation	Usulan operasi yang tepat
+remediation.effect	Expected effect	Dampak yang diharapkan
+remediation.risks	Risks and limitations	Risiko dan batasan
+remediation.type	Type	Ketik
+remediation.confirm	Confirm local policy change	Konfirmasi perubahan kebijakan lokal
+remediation.disabled	Decision changes and network enforcement are disabled. Preview is recorded; no decision or firewall action occurred.	Perubahan keputusan dan penegakan jaringan dinonaktifkan. Pratinjau dicatat; tidak ada tindakan keputusan atau firewall yang terjadi.
+remediation.saved	Local policy saved. No engine or network change.	Kebijakan lokal tersimpan. Tidak ada perubahan engine atau jaringan.
+remediation.noRetry	No automatic retry. Refresh policy and audit before trying again.	Tidak ada percobaan ulang otomatis. Perbarui kebijakan dan audit sebelum mencoba lagi.
+loading.engine	Reading the engine	Membaca engine
+loading.engineShort	Reading engine…	Membaca engine…
+loading.description	Retrieving bounded, read-only observations.	Mengambil pengamatan terbatas dan hanya-baca.
+loading.label	Loading engine observations	Memuat pengamatan engine
+loading.remediation	Loading remediation observations	Memuat pengamatan remediasi
+errors.engine	Engine unavailable	Engine tidak tersedia
+errors.noSamples	No sample data has been substituted.	Tidak ada data contoh yang digunakan sebagai pengganti.
+errors.unable	Unable to read CrowdSec	Tidak dapat membaca CrowdSec
+errors.refreshHelp	Refresh to request an observation from the configured engine.	Perbarui untuk meminta pengamatan dari engine yang dikonfigurasi.
+errors.noObservation	No successful engine observation	Belum ada pengamatan engine yang berhasil
+errors.stale	STALE observation. Refresh before interpreting engine health.	Pengamatan STALE (kedaluwarsa). Perbarui sebelum menafsirkan kesehatan engine.
+errors.additional	Additional records exist beyond this window.	Ada catatan tambahan di luar jendela ini.
+errors.truth	Alert times describe stored evidence; LIVE describes a successful current read. JAGRATA does not create decisions or enforce blocks. External enforcement has not been audited.	Waktu peringatan menjelaskan bukti tersimpan; LIVE berarti pembacaan terkini berhasil. JAGRATA tidak membuat keputusan atau melakukan pemblokiran. Penegakan eksternal belum diaudit.
+errors.page404	404 · Workspace not found	404 · Ruang kerja tidak ditemukan
+errors.choose	Choose a page from the navigation.	Pilih halaman dari navigasi.
+errors.generic	Request failed safely	Permintaan gagal dengan aman
+errors.request	Request failed	Permintaan gagal
+errors.csrf	CSRF validation failed	Validasi CSRF gagal
+errors.origin	Same-origin JSON request required	Permintaan JSON dari origin yang sama diperlukan
+errors.host	Invalid host	Host tidak valid
+errors.tooLarge	Request too large	Permintaan terlalu besar
+errors.json	Invalid JSON	JSON tidak valid
+errors.operation	Operation not available	Operasi tidak tersedia
+errors.method	Method not allowed	Metode tidak diizinkan
+errors.upstream	CrowdSec observation unavailable. No sample data substituted.	Pengamatan CrowdSec tidak tersedia. Tidak ada data contoh sebagai pengganti.
+errors.alert	Alert unavailable from the configured engine	Peringatan tidak tersedia dari engine yang dikonfigurasi
+errors.metrics	Metrics unavailable; source health is unknown.	Metrik tidak tersedia; kesehatan sumber tidak diketahui.
+errors.scenarios	Installed scenario observation unavailable.	Pengamatan skenario terpasang tidak tersedia.
+errors.engineStopped	Engine stopped. Stored alerts cannot be read until an authorized operator starts it.	Engine berhenti. Peringatan tersimpan tidak dapat dibaca sampai operator yang berwenang memulainya.
+common.retryObservation	Retry observation	Coba baca pengamatan lagi
+common.tableRegion	Data table region	Area tabel data
+remediation.newPreview	Refresh and create a new preview.	Perbarui dan buat pratinjau baru.
+sources.removalPending	A removed configuration is still mounted in the current engine. Removal is pending an explicit operator deployment; existing log files are preserved.	Konfigurasi yang dihapus masih terpasang pada engine saat ini. Penghapusan menunggu penerapan operator secara eksplisit; file log yang ada tetap disimpan.
+preferences.timezone	Timezone	Zona waktu
+preferences.closeTimezone	Close timezone preferences	Tutup preferensi zona waktu
+preferences.searchTimezone	Search timezones	Cari zona waktu
+preferences.displayOnly	Display preference only. Original evidence timestamps remain unchanged.	Hanya preferensi tampilan. Timestamp bukti asli tetap utuh.
+preferences.offsetDate	UTC offsets shown for today; displayed timestamps use the offset at the event time.	Offset UTC ditampilkan untuk hari ini; timestamp menggunakan offset pada waktu kejadian.
+navigation.expand	Expand navigation	Perluas navigasi

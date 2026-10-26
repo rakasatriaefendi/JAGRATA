@@ -1,0 +1,77 @@
+import {createHash,randomBytes} from 'node:crypto';
+import {network,protection} from './remediation.ts';
+import {sourceError} from './sources.ts';
+const check=(v:any,message:string)=>{if(!v)throw sourceError(message)};
+const hash=(v:any)=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
+export const PLAN_KINDS=['community','appsec-nginx','bouncer-nginx','decision-create','engine-allowlist','notifications','hub-update','simulation','datasource','engine-upgrade','cti','console-enroll','subscription','machine-registration','diagnostics','support-bundle'] as const;
+export class SecurityPlans{
+ platform:any;policy:any;clock:()=>number;receipts=new Map<string,any>();
+ constructor(platform:any,policy?:any,clock=Date.now){this.platform=platform;this.policy=policy;this.clock=clock}
+ async prepare(input:any,actor:string){
+  check(input&&Object.keys(input).every(k=>['kind','target','reason','minutes','proxy','managementCidrs','failMode','sourceType','sharing','idempotencyKey'].includes(k)),'Unsupported plan field.');
+  check(PLAN_KINDS.includes(input.kind),'Unsupported security plan.');check(typeof actor==='string'&&actor.length>0,'Administrator required.');
+  const key=input.idempotencyKey;check(typeof key==='string'&&/^[a-f0-9]{32}$/.test(key),'Exact idempotency key required.');
+  const signature=hash({actor,input});const prior=this.receipts.get(actor+':'+key);if(prior){check(prior.signature===signature,'Idempotency key belongs to another plan.');check(this.clock()<Date.parse(prior.receipt.expiresAt),'Plan expired. Create a newly reviewed plan.');return {...prior.receipt,duplicate:true}}
+  for(const [k,p]of this.receipts)if(this.clock()>=Date.parse(p.receipt.expiresAt))this.receipts.delete(k);check(this.receipts.size<128,'Plan capacity reached.');
+  const observed=await this.platform.snapshot();check(observed.identity&&observed.state!=='UNAVAILABLE','Owned engine observation required.');
+  const management=Array.isArray(input.managementCidrs)&&input.managementCidrs.length<=32?input.managementCidrs.map((s:any)=>network(s).value):[];
+  check(input.managementCidrs===undefined||Array.isArray(input.managementCidrs)&&input.managementCidrs.length<=32,'Invalid protected-address inventory.');
+  const policy=this.policy?await this.policy.list():{entries:[]};const protectedEntries=[...policy.entries.filter((e:any)=>e.active),...management.map(target=>({target,reason:'Operator management address'}))];
+  const id=randomBytes(16).toString('hex'),kind=input.kind,commands:any[]=[],changes:any[]=[],blockers:string[]=[],checks:string[]=[],rollback:string[]=[];
+  let target=input.target||null;const effects:string[]=[];
+  if(kind==='decision-create'){
+   target=network(input.target).value;check(!target.includes('/'),'One literal IP required for a decision.');check(!protection(target,protectedEntries).length,'Protected target: local, management, infrastructure or allowlisted range.');
+   check(typeof input.reason==='string'&&input.reason.trim().length>=8&&input.reason.length<=100&&!/[\x00-\x1f\x7f]/.test(input.reason),'A specific bounded reason is required.');
+   check(Number.isInteger(input.minutes)&&input.minutes>=1&&input.minutes<=1440,'Duration must be 1–1440 minutes.');
+   check(management.length>0,'Explicit management CIDR inventory required; public ownership is not assumed safe.');
+   commands.push({program:'cscli',argv:['decisions','add','--ip',target,'--duration',input.minutes+'m','--reason','jagrata/'+id+':'+input.reason,'--type','ban']});
+   effects.push('Creates an internal CrowdSec decision; a connected external component may enforce it immediately.');blockers.push('Separate exact-target enforcement-aware operator grant required.');
+   checks.push('Revalidate protected ranges and public target ownership immediately before apply.','Verify a fresh decision with exact target, origin cscli, unique JAGRATA reason and new ID.');rollback.push('Delete only the exact verified JAGRATA-created decision ID after authoritative ownership recheck. Never delete by IP or --all.');
+  }else if(kind==='community'){
+   check(input.sharing===false,'This initial plan requires sharing disabled. A sharing change needs its own privacy approval.');
+   changes.push({file:'/etc/crowdsec/config.yaml.local',candidate:{api:{server:{online_client:{sharing:false,pull:{community:true,blocklists:false},credentials_path:'/etc/crowdsec/online_api_credentials.yaml'}}}}});
+   commands.push({program:'cscli',argv:['capi','register']},{program:'cscli',argv:['capi','status'],externalNetwork:true});
+   effects.push('Contacts CrowdSec services. Depending on separately approved settings, detection IPs, scenario names, timestamps, machine/version and usage/context metadata may be exchanged.');
+   blockers.push('External registration, network egress and service terms review required. Console enrollment and paid subscriptions are separate approvals.');
+   checks.push('Verify effective sharing=false and scope of community pull before engine apply.','Use official authorization to verify entitlement; stored credentials alone do not prove enrollment.');rollback.push('Restore exact pre-change effective configuration and credentials snapshot; reviewed reload/restart may be needed. Do not unregister/delete unrelated accounts or feeds.');
+  }else if(kind==='appsec-nginx'||kind==='bouncer-nginx'){
+   check(input.proxy==='nginx','Only the official Nginx integration is currently planned.');check(['fail-open','fail-closed'].includes(input.failMode),'Explicit failure mode required.');
+   blockers.push('No target reverse proxy has been independently identified. Resolve exact machine/container, network, package version and ownership before deployment.','Separate component registration, private key delivery, traffic-routing and enforcement approval required.');
+   if(kind==='appsec-nginx'){
+    commands.push({program:'cscli',argv:['collections','install','crowdsecurity/appsec-virtual-patching']},{program:'cscli',argv:['collections','install','crowdsecurity/appsec-generic-rules']});
+    changes.push({file:'/etc/crowdsec/acquis.d/jagrata-appsec.yaml',yaml:'source: appsec\nlisten_addr: 127.0.0.1:7422\nappsec_config: crowdsecurity/appsec-default\nlabels:\n  type: appsec\n',scope:'Same engine; loopback candidate only. A separate proxy container cannot use engine loopback. Review private network binding before adapting.'});
+    effects.push('Requires AppSec rules and an approved request forwarder; installed rules alone do not protect traffic.');
+   }
+   changes.push({file:'/etc/crowdsec/bouncers/crowdsec-nginx-bouncer.conf',integrationHookInstalled:false,candidate:{API_URL:'REQUIRES_VERIFIED_PRIVATE_LAPI_TARGET',API_KEY:'OPERATOR_PRIVATE_SECRET_NOT_IN_BROWSER',APPSEC_URL:kind==='appsec-nginx'?'REQUIRES_VERIFIED_PRIVATE_APPSEC_TARGET':'',APPSEC_FAILURE_ACTION:input.failMode==='fail-open'?'passthrough':'deny',APPSEC_CONNECT_TIMEOUT:100,APPSEC_SEND_TIMEOUT:100,APPSEC_PROCESS_TIMEOUT:1000,SSL_VERIFY:true,MODE:'stream',REQUEST_TIMEOUT:1000},validation:'INCOMPLETE_REQUIRES_TARGET_SECRETS_AND_PINNED_COMPONENT_VALIDATION',failureModeScope:'APPSEC_FAILURE_ACTION controls an AppSec 500 response. Independently verify LAPI timeout, disconnection and proxy-init behavior before deployment.'});
+   checks.push('Keep JAGRATA admin traffic outside the trial route.','Nginx Lua/OpenResty dependencies and package provenance required.','Validate Nginx configuration offline; test management bypass and fail mode.','Correlate benign and synthetic requests, native AppSec counters/rule IDs and target response evidence. Registration or recent API pulls alone do not verify enforcement.');
+   rollback.push('Disable only the approved route/component configuration, restore exact config and secret references, validate proxy before reviewed reload. Preserve one engine and its existing volumes.');
+  }else if(kind==='engine-allowlist'){
+   target=network(input.target).value;changes.push({engineAllowlist:'jagrata-reviewed',item:target,localPolicySynchronization:false});
+   commands.push({program:'cscli',argv:['allowlists','create','jagrata-reviewed','-d','JAGRATA operator-reviewed protection']},{program:'cscli',argv:['allowlists','add','jagrata-reviewed',target]});
+   blockers.push('Verify no existing or Console-managed allowlist ownership collision. Separate engine-write approval required.');checks.push('Inspect actual engine allowlist before/after; local policy is a separate object.');rollback.push('Remove only the exact owned added item; never delete a pre-existing or Console-managed list.');
+  }else if(kind==='datasource'){
+   check(['file','syslog','journalctl','docker','http','kubernetes','kubernetesaudit','s3','cloudwatch','kinesis','kafka','loki','victorialogs','wineventlog','appsec'].includes(input.sourceType),'Unknown upstream datasource.');
+   const capability=observed.datasources?.find((x:any)=>x.type===input.sourceType);if(capability?.compiled===false)blockers.push('Selected datasource is excluded from this binary; a reviewed compatible build is required.');if(capability?.platformSupported===false)blockers.push('Native Windows Event Log acquisition cannot run on this Linux engine. An explicitly approved OS log forwarder to the SAME engine is required.');changes.push({source:input.sourceType,capability:capability||null,engineCount:1,target:'Existing installation acquisition directory',status:'TARGET_CONFIGURATION_REQUIRED'});blockers.push('Validate platform/build support, exact log ownership, schema, secret references and least-privilege transport. New mounts may require reviewed recreation of the SAME service.');checks.push('Use approved synthetic input only after apply; verify per-source read/parsed deltas and scenario/alert evidence.');rollback.push('Restore only the owned acquisition definition and mounts; preserve source logs and persistent data.');
+  }else if(kind==='notifications'){
+   blockers.push('Select exact installed plugin, approved destination and private secret provider; outbound delivery needs separate approval.');commands.push({program:'cscli',argv:['notifications','list','-o','json'],handling:'Operator-only private output; may contain credentials. Not executed by JAGRATA.'});checks.push('Review a sanitized candidate and explicit test recipient; never send historical raw alert context without consent.');rollback.push('Restore only the selected profile association/plugin configuration; keep audit evidence.');
+  }else if(kind==='hub-update'){
+   commands.push({program:'cscli',argv:['hub','update']});blockers.push('Pin exact Hub item revisions and review rule changes and external downloads before install/upgrade.');checks.push('Run isolated parser/scenario tests; engine reload may require separate approval.');rollback.push('Restore exact previous Hub versions and owned configuration; retain custom/tainted items.');
+  }else if(kind==='simulation'){
+   changes.push({file:'/etc/crowdsec/simulation.yaml',effect:'Operator-selected scenario simulation; no implicit global enable'});blockers.push('Specify exact scenarios and detection impact before approval.');checks.push('Verify exact simulation flags and real-versus-simulated decisions.');rollback.push('Restore the exact prior simulation configuration; no decision cleanup.');
+  }else if(kind==='cti'){
+   changes.push({file:'/etc/crowdsec/config.yaml.local',candidate:{api:{cti:{enabled:false,key:'OPERATOR_PRIVATE_REFERENCE_ONLY'}}}});blockers.push('Choose an authorized CTI service entitlement, approved queries, rate budget and private secret provider before enabling external access.');effects.push('CTI queries disclose queried IPs to the provider; intelligence use and redistribution remain subject to separate terms.');checks.push('Use official documented API and explicit external-network grant; reject arbitrary URLs and malformed responses.');rollback.push('Restore exact prior CTI settings and disable only the owned integration; do not revoke unrelated account keys.');
+  }else if(kind==='console-enroll'){
+   commands.push({program:'cscli',argv:['console','enroll','OPERATOR_PRIVATE_ENROLLMENT_TOKEN'],secretHandling:'Token must never enter browser state or plan payload.'});blockers.push('Separate hosted Console account, enrollment, sharing preferences and external-network approval required.');checks.push('Verify enrollment with authorized CAPI status; do not infer from credentials alone.');rollback.push('Review account-side unenrollment separately; restore exact local preferences without deleting historical alerts.');
+  }else if(kind==='subscription'){
+   changes.push({provider:'CrowdSec official account workflow',eligibility:'UNKNOWN',feedRedistribution:false});blockers.push('Authorized service entitlement and explicit subscription approval required. No public subscription mutation API is invented or hosted UI scraped.');commands.push({program:'cscli',argv:['papi','status'],externalNetwork:true});checks.push('Verify granted PAPI categories and exact feed terms using approved official interfaces.');rollback.push('Reverse only the approved account subscription through official workflow; preserve local decisions/evidence.');
+  }else if(kind==='machine-registration'){
+   commands.push({program:'cscli',argv:['machines','add','jagrata-reviewed-agent'],secretHandling:'Private operator delivery only; generated password is never returned to the browser.'});blockers.push('Identify exact log processor, ownership, private transport and registration-name collision before explicit credential-creation approval.');checks.push('Verify authenticated machine heartbeat; registration alone is not ingestion proof.');rollback.push('Revoke only the exact newly owned machine after checking dependencies; preserve engine and credentials of existing agents.');
+  }else if(kind==='diagnostics'||kind==='support-bundle'){
+   changes.push({workflow:kind,input:'EXPLICIT_SYNTHETIC_OR_REVIEWED_REDACTED_INPUT_ONLY',execution:'NOT_PERFORMED'});blockers.push('Separate explicit input paths, privacy review and isolated execution required. No real log reads, untrusted Hub test code, bundle generation or upload occurs.');checks.push('Exclude private keys, credentials and personal log data; record source hashes and bounded output.');rollback.push('Retain private diagnostic evidence; no engine configuration changes are part of this workflow.');
+  }else{
+   blockers.push('No newer official stable release was available at the audit. Master is not a production upgrade candidate. Narrow native backports require separate isolated source/build/schema/provenance review.');checks.push('Verify pinned official release, image platforms, API schemas, backups and rollback without migrating current volumes.');rollback.push('Use separately tested compatible restore; never assume downgrading a migrated database is safe.');
+  }
+  const receipt={id,kind,actor,target,policyRevision:policy.revision??null,createdAt:new Date(this.clock()).toISOString(),expiresAt:new Date(this.clock()+900000).toISOString(),installation:observed.identity,observedAt:observed.observedAt,sourceVersion:observed.engineVersion?.version,managementCidrs:management,changes,commands,effects,blockers,checks,rollback,executable:false,state:'APPROVAL_REQUIRED',confirmation:'REVIEW '+id+(target?' '+target:''),engineCount:1,networkMutations:false,enforcement:'NOT_VERIFIED'};
+  const value={...receipt,sha256:hash(receipt)};this.receipts.set(actor+':'+key,{signature,receipt:value});return value;
+ }
+}

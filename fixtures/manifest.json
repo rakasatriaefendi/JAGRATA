@@ -1,0 +1,11 @@
+{
+  "format_version": 1,
+  "files": {
+    "ssh/auth.log": {
+      "sha256": "905cf4e0692814234c76fc7e4b46cdd635fb285a582c85aee4edb27beb06d378"
+    },
+    "web/access.log": {
+      "sha256": "3929770331606b06d9200d48b17229a24b3fe35d0258e1f89e3031ee35d41b88"
+    }
+  }
+}

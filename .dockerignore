@@ -1,0 +1,7 @@
+references/
+runtime/
+node_modules/
+.git/
+.aws/
+.codex/
+.agents/

@@ -1,0 +1,73 @@
+# Use the lifecycle launcher. Legacy .env and legacy resources are not adopted.
+name: crowdsec-guard-${GUARD_INSTALLATION_ID:?Use lab init and the lifecycle launcher}
+
+x-guard-labels: &guard-labels
+  io.crowdsec-guard.installation: ${GUARD_INSTALLATION_ID:?Required}
+  io.crowdsec-guard.owner: ${GUARD_OWNER_TOKEN:?Required}
+  io.crowdsec-guard.root: ${GUARD_ROOT_HASH:?Required}
+  io.crowdsec-guard.schema: '1'
+
+services:
+  crowdsec:
+    # RepoDigest observed during the independent audit (AMD64).
+    # Other architectures and supply-chain provenance remain R2 gates.
+    image: crowdsecurity/crowdsec:v1.8.1@sha256:0f2523fa61ef507f15d953045cface490cc880670c62f2755ced17524107f71a
+    container_name: crowdsec-guard-${GUARD_INSTALLATION_ID:?Required}-engine
+    labels: *guard-labels
+    restart: 'no'
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    mem_limit: 1g
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+    environment:
+      COLLECTIONS: crowdsecurity/linux crowdsecurity/sshd crowdsecurity/nginx
+      DISABLE_ONLINE_API: 'true'
+      NO_HUB_UPGRADE: 'true'
+      TZ: UTC
+    volumes:
+      - crowdsec-data:/var/lib/crowdsec/data
+      - crowdsec-config:/etc/crowdsec
+      - type: bind
+        source: ${GUARD_ROOT:?Required}/config/installations/${GUARD_INSTALLATION_ID:?Required}/acquis.d/ssh.yaml
+        target: /etc/crowdsec/acquis.d/guard-ssh.yaml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${GUARD_ROOT:?Required}/config/installations/${GUARD_INSTALLATION_ID:?Required}/acquis.d/web.yaml
+        target: /etc/crowdsec/acquis.d/guard-web.yaml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${GUARD_ROOT:?Required}/runtime/installations/${GUARD_INSTALLATION_ID:?Required}/logs
+        target: /lab/logs
+        read_only: true
+        bind:
+          create_host_path: false
+    networks: [guardnet]
+    healthcheck:
+      test: [CMD, cscli, lapi, status]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+
+networks:
+  guardnet:
+    name: crowdsec-guard-${GUARD_INSTALLATION_ID:?Required}-guardnet
+    driver: bridge
+    internal: false # Hub/content downloads still need egress; no offline claim.
+    labels: *guard-labels
+
+volumes:
+  crowdsec-data:
+    name: crowdsec-guard-${GUARD_INSTALLATION_ID:?Required}-data
+    labels: *guard-labels
+  crowdsec-config:
+    name: crowdsec-guard-${GUARD_INSTALLATION_ID:?Required}-config
+    labels: *guard-labels

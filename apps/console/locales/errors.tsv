@@ -1,0 +1,67 @@
+errors.duration	Invalid decision duration.	Durasi keputusan tidak valid.
+errors.unsupportedDuration	Unsupported decision duration.	Durasi keputusan tidak didukung.
+errors.window	Invalid decision window.	Jendela keputusan tidak valid.
+errors.envelope	Invalid decision envelope.	Struktur keputusan tidak valid.
+errors.duplicateDecision	Invalid or duplicate decision.	Keputusan tidak valid atau duplikat.
+errors.decisionIp	Invalid decision IP.	IP keputusan tidak valid.
+errors.alertTime	Invalid alert timestamp.	Waktu peringatan tidak valid.
+errors.decisionLimit	Too many decisions in bounded response.	Terlalu banyak keputusan dalam respons terbatas.
+errors.receipt	Invalid initialization receipt.	Receipt inisialisasi tidak valid.
+errors.initOwner	Initialization ownership mismatch.	Kepemilikan inisialisasi tidak cocok.
+errors.receiptReplaced	Initialization receipt replaced.	Receipt inisialisasi telah diganti.
+errors.policyPath	Policy state must stay below runtime/.	State kebijakan harus tetap berada di dalam runtime/.
+errors.policyDirectory	Private policy directory required.	Direktori kebijakan privat diperlukan.
+errors.policyFile	Invalid policy state file.	File state kebijakan tidak valid.
+errors.privatePolicy	Private policy file required.	File kebijakan privat diperlukan.
+errors.fileReplaced	Policy file replaced.	File kebijakan telah diganti.
+errors.policyOwner	Policy installation ownership mismatch.	Kepemilikan instalasi kebijakan tidak cocok.
+errors.policyState	Invalid policy state.	State kebijakan tidak valid.
+errors.auditDamaged	Audit chain damaged; preserved for recovery.	Rantai audit rusak; bukti disimpan untuk pemulihan.
+errors.allowlist	Invalid allowlist entry.	Entri daftar izin tidak valid.
+errors.allowlistOwner	Unowned allowlist entry.	Entri daftar izin tanpa kepemilikan yang sesuai.
+errors.commitTimeout	Policy operation deadline expired before commit.	Batas waktu operasi kebijakan terlampaui sebelum penyimpanan.
+errors.publishTimeout	Policy operation deadline expired before publication.	Batas waktu operasi kebijakan terlampaui sebelum publikasi.
+errors.stateMissing	Initialized policy state is missing. No automatic reset.	State kebijakan yang sudah diinisialisasi hilang. Tidak ada reset otomatis.
+errors.receiptMissing	Policy initialization receipt missing. Preserved for review.	Receipt inisialisasi kebijakan hilang. Bukti disimpan untuk peninjauan.
+errors.badAcquisition	Invalid acquisition source.	Sumber akuisisi tidak valid.
+errors.sourcePath	Source state must remain below project runtime/.	State sumber harus tetap berada di dalam runtime/ proyek.
+errors.sourcePrivate	Source state directory must be private.	Direktori state sumber harus privat.
+errors.registryLimit	Source registry exceeds its limit.	Registri sumber melebihi batasnya.
+errors.registryOwner	Cross-installation source registry rejected.	Registri sumber lintas instalasi ditolak.
+errors.registry	Invalid source registry.	Registri sumber tidak valid.
+errors.duplicateSource	Invalid or duplicate source ID.	ID sumber tidak valid atau duplikat.
+errors.containerPath	Invalid container path.	Jalur container tidak valid.
+errors.unsupported	Operation unsupported.	Operasi tidak didukung.
+errors.manifestLimit	Plan manifest too large.	Manifest rencana terlalu besar.
+errors.registryDamaged	Source registry is malformed; preserved for recovery.	Format registri sumber rusak; bukti disimpan untuk pemulihan.
+errors.configRequired	Explicit admin/adapter files and TLS certificate/key required; run bootstrap first.	File admin/adaptor serta sertifikat/kunci TLS eksplisit diperlukan; lakukan bootstrap terlebih dahulu.
+errors.port	Invalid port	Port tidak valid
+errors.url	URL too long	URL terlalu panjang
+errors.apiRoute	API route not found	Rute API tidak ditemukan
+errors.page	Page not found	Halaman tidak ditemukan
+errors.adminInput	Username 3–64 characters and password 14–256 characters required.	Nama pengguna 3–64 karakter dan kata sandi 14–256 karakter diperlukan.
+errors.adminState	Invalid administrator state	State administrator tidak valid
+errors.adminPrivate	Administrator file must be a private regular file	File administrator harus berupa file reguler privat
+errors.crowdsecResponse	Invalid CrowdSec response	Respons CrowdSec tidak valid
+errors.crowdsecTime	Invalid CrowdSec timestamp	Waktu CrowdSec tidak valid
+errors.alertShape	Invalid alert shape	Struktur peringatan tidak valid
+errors.sourceIp	Invalid source IP	IP sumber tidak valid
+errors.scenario	Invalid scenario	Skenario tidak valid
+errors.event	Invalid event	Kejadian tidak valid
+errors.metricsSchema	Unknown metrics schema	Skema metrik tidak dikenal
+errors.metricLimit	Too many metric series	Terlalu banyak seri metrik
+errors.counter	Invalid counter	Penghitung tidak valid
+errors.explicitInstallation	Explicit test installation configuration required	Konfigurasi instalasi uji eksplisit diperlukan
+errors.adapterPrivate	Adapter file must be a private regular file	File adaptor harus berupa file reguler privat
+errors.adapterBusy	Adapter busy	Adaptor sibuk
+errors.observationTimeout	Observation deadline exceeded	Batas waktu pengamatan terlampaui
+errors.remote	Remote context rejected	Konteks jarak jauh ditolak
+errors.ownership	Resource ownership or isolation mismatch	Kepemilikan atau isolasi resource tidak cocok
+errors.notPermitted	Operation not permitted	Operasi tidak diizinkan
+errors.stopped	Engine stopped	Engine berhenti
+errors.alertId	Alert ID mismatch	ID peringatan tidak cocok
+errors.alertsSchema	Unknown alerts schema	Skema peringatan tidak dikenal
+errors.nameEncoding	Use a display name of 1â€“80 characters.	Gunakan nama tampilan 1–80 karakter.
+errors.requestTimeout	The operation was aborted.	Operasi dibatalkan karena batas waktu terlampaui.
+errors.fetch	Failed to fetch	Gagal mengambil data
+errors.noRetry	No automatic retry. Refresh policy and audit before trying again.	Tidak ada percobaan ulang otomatis. Perbarui kebijakan dan audit sebelum mencoba lagi.

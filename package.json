@@ -1,0 +1,22 @@
+{
+  "name": "crowdsec-guard",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24",
+    "npm": ">=9"
+  },
+  "scripts": {
+    "setup": "node installer/cli.ts setup",
+    "start": "node installer/cli.ts start",
+    "stop": "node installer/cli.ts stop",
+    "status": "node installer/cli.ts status",
+    "doctor": "node installer/cli.ts doctor",
+    "test": "node --test --test-timeout=60000 apps/manager/tests/*.test.ts tests/cs03/*.test.ts tests/cs04/*.test.ts tests/cs05/*.test.ts",
+    "sources:plan": "node installer/source-plan.ts"
+  },
+  "dependencies": {
+    "i18next": "26.5.10"
+  }
+}

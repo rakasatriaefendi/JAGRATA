@@ -1,0 +1,14 @@
+# Selected only by an installation initialized with --persistence bind.
+services:
+  crowdsec:
+    volumes:
+      - type: bind
+        source: ${GUARD_ROOT:?Required}/runtime/installations/${GUARD_INSTALLATION_ID:?Required}/crowdsec/data
+        target: /var/lib/crowdsec/data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${GUARD_ROOT:?Required}/runtime/installations/${GUARD_INSTALLATION_ID:?Required}/crowdsec/config
+        target: /etc/crowdsec
+        bind:
+          create_host_path: false

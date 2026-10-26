@@ -1,0 +1,3 @@
+export type Freshness = 'LIVE' | 'HISTORICAL' | 'STALE' | 'UNAVAILABLE';
+export interface Alert { id:number; scenario:string; source:string; scope:string; startedAt:string; stoppedAt:string; createdAt:string; eventCount:number; scenarioVersion:string|null; events:{timestamp:string;meta:Record<string,string>}[]; decisions:{type:string;duration:string|null}[] }
+export interface Observation { observedAt:string; engine:{state:'running'|'stopped'|'unavailable';lapi:boolean;freshness:Freshness}; alerts:Alert[]|null; window:{limit:number;truncated:boolean;description:string}; metrics:Record<string,unknown>|null; scenarios:string[]|null; warnings:string[] }

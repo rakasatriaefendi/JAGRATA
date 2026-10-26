@@ -1,0 +1,226 @@
+securityUi.nav	Security Integrations	Integrasi Keamanan
+securityUi.heading	Shared engine evidence, optional community intelligence and approval-controlled protection workflows.	Bukti engine bersama, intelijen komunitas opsional, dan alur proteksi dengan persetujuan operator.
+securityUi.noActivation	Integration plans do not enable CAPI, intercept requests, register components or apply decisions.	Rencana integrasi tidak mengaktifkan CAPI, mencegat request, mendaftarkan komponen, atau menerapkan keputusan.
+securityUi.unavailable	Security observations unavailable. Existing detections remain read-only.	Pengamatan keamanan tidak tersedia. Deteksi yang ada tetap hanya baca.
+securityUi.noSamples	Security observation unavailable. No sample data substituted.	Pengamatan keamanan tidak tersedia. Tidak ada penggantian dengan data contoh.
+securityUi.read	Read security observation	Baca pengamatan keamanan
+securityUi.readHint	Read a shared, bounded observation to inspect capabilities.	Baca pengamatan bersama dengan batas yang jelas untuk memeriksa kapabilitas.
+securityUi.advanced	Advanced engine observation	Pengamatan engine lanjutan
+securityUi.display	Engine display name	Nama tampilan engine
+securityUi.engine	JAGRATA engine	Engine JAGRATA
+securityUi.version	Engine version	Versi engine
+securityUi.actualName	Actual container name	Nama container sebenarnya
+securityUi.containerId	Immutable container ID	ID container tetap
+securityUi.provenance	Official image provenance	Asal image resmi
+securityUi.start	Process start	Waktu mulai proses
+securityUi.uptime	Uptime seconds	Durasi aktif dalam detik
+securityUi.restarts	Restart count	Jumlah restart
+securityUi.observed	Observation time	Waktu pengamatan
+securityUi.one	One owned engine, multiple log sources. Identity is verified at observation time.	Satu engine terverifikasi, banyak sumber log. Identitas diverifikasi pada waktu pengamatan.
+securityUi.rateHint	Rates require two same-process samples. Idle counters do not prove that a source is healthy.	Laju memerlukan dua sampel dari proses yang sama. Counter tidak bertambah bukan bukti sumber sehat.
+securityUi.restart	Engine restart observed; rates reset.	Restart engine teramati; perhitungan laju direset.
+securityUi.noRestart	No restart observed between retained samples.	Tidak ada restart yang teramati di antara sampel tersimpan.
+securityUi.ingestion	Configured sources and observed ingestion	Sumber terkonfigurasi dan ingestion teramati
+securityUi.sourceHint	Configured acquisition paths are distinct from JAGRATA-managed registrations. Missing counters remain unknown; no source is silently adopted.	Path acquisition terkonfigurasi berbeda dari registrasi yang dikelola JAGRATA. Counter yang tidak tersedia tetap tidak diketahui; tidak ada adopsi sumber secara diam-diam.
+securityUi.noSeries	No acquisition series or inspected file definitions available.	Tidak ada seri acquisition atau definisi file yang diperiksa tersedia.
+securityUi.noTailProof	Last event timestamp and active-tail proof are unavailable from these counters.	Counter ini tidak menyediakan timestamp kejadian terakhir atau bukti tail aktif.
+securityUi.registryUnknown	Registry unknown	Registri tidak diketahui
+securityUi.managed	JAGRATA-managed	Dikelola JAGRATA
+securityUi.unmanaged	Engine configuration; not adopted	Konfigurasi engine; belum diadopsi
+securityUi.counterTime	Counter increase observed at: {{value}}	Kenaikan counter teramati pada: {{value}}
+securityUi.rate	Read rate / second	Laju baca / detik
+securityUi.readCount	Read	Dibaca
+securityUi.parsed	Parsed	Diparsing
+securityUi.unparsed	Unparsed	Tidak diparsing
+securityUi.partial	Partial observation	Pengamatan parsial
+securityUi.awaitSamples	Awaiting second sample	Menunggu sampel kedua
+securityUi.increase	Counter increase observed	Kenaikan counter teramati
+securityUi.idle	No counter increase	Tidak ada kenaikan counter
+securityUi.reset	Counter reset	Counter direset
+securityUi.available	Available	Tersedia
+securityUi.approval	Operator approval required	Persetujuan operator diperlukan
+securityUi.notConfigured	Not configured	Belum dikonfigurasi
+securityUi.rules	Rules installed	Rule terpasang
+securityUi.configPresent	Configuration present	Konfigurasi tersedia
+securityUi.upgrade	Upgrade required	Upgrade diperlukan
+securityUi.configUnverified	Configured, not verified	Terkonfigurasi, belum diverifikasi
+securityUi.blocklistDisabled	Blocklist disabled	Blocklist dinonaktifkan
+securityUi.recentPull	Recent API pull	Penarikan API baru teramati
+securityUi.olderPull	Older API pull	Penarikan API sudah lama
+securityUi.noPull	No API pull observed	Belum ada penarikan API teramati
+securityUi.registered	Registered	Terdaftar
+securityUi.revoked	Revoked	Dicabut
+securityUi.native	Native counters	Counter native
+securityUi.nativeHint	Cumulative component-reported values. They do not prove end-to-end enforcement.	Nilai kumulatif yang dilaporkan komponen. Nilai ini bukan bukti enforcement dari ujung ke ujung.
+securityUi.noMetrics	No metric series observed. No zero values substituted.	Tidak ada seri metrik teramati. Nilai nol tidak digunakan sebagai pengganti.
+securityUi.inventory	Installed Hub and engine capabilities	Hub terpasang dan kapabilitas engine
+securityUi.inventoryDate	Inventory observed {{value}}. Cached for five minutes; no Hub update or installation is performed.	Inventaris diamati {{value}}. Cache berlaku lima menit; tidak ada update atau instalasi Hub.
+securityUi.processors	Log processors and simulation	Pemroses log dan simulasi
+securityUi.processorTable	Log processor inventory	Inventaris pemroses log
+securityUi.processor	Log processor	Pemroses log
+securityUi.heartbeat	Last heartbeat	Heartbeat terakhir
+securityUi.push	Last alert push	Pengiriman alert terakhir
+securityUi.simulation	Simulation: {{value}}	Simulasi: {{value}}
+securityUi.profileHint	Profile names are configuration inventory only; notification delivery is not verified.	Nama profil hanya inventaris konfigurasi; pengiriman notifikasi belum diverifikasi.
+securityUi.engineAllowlists	Actual engine allowlists	Allowlist engine sebenarnya
+securityUi.allowlistHint	Engine allowlists are separate from JAGRATA-local protection policy. No synchronization is enabled.	Allowlist engine terpisah dari kebijakan proteksi lokal JAGRATA. Sinkronisasi tidak diaktifkan.
+securityUi.allowlistUnavailable	Engine allowlist inventory unavailable.	Inventaris allowlist engine tidak tersedia.
+securityUi.noAllowlists	No engine allowlists returned.	Tidak ada allowlist engine yang dikembalikan.
+securityUi.consoleManaged	Console managed	Dikelola Console
+securityUi.localManaged	Locally managed	Dikelola secara lokal
+securityUi.noExpiry	No expiry reported	Tidak ada kedaluwarsa dilaporkan
+securityUi.community	Community Blocklist	Blocklist Komunitas
+securityUi.credentials	Local CAPI credentials present	Kredensial CAPI lokal tersedia
+securityUi.sharing	Outbound sharing configuration	Konfigurasi berbagi keluar
+securityUi.communityPull	Community pull configuration	Konfigurasi penarikan komunitas
+securityUi.reachability	Service reachability	Keterjangkauan layanan
+securityUi.notProbed	Not probed; external access requires approval.	Tidak diuji; akses eksternal memerlukan persetujuan.
+securityUi.eligibility	Subscription eligibility	Kelayakan langganan
+securityUi.noEntitlement	Unknown; no entitlement request made.	Tidak diketahui; tidak ada permintaan hak akses.
+securityUi.sync	Last successful synchronization	Sinkronisasi berhasil terakhir
+securityUi.communityDecisions	Community-origin decisions in bounded observation	Keputusan asal komunitas dalam pengamatan terbatas
+securityUi.privacy	Privacy and external services	Privasi dan layanan eksternal
+securityUi.privacyDisclosure	CAPI and Console may exchange detection IPs, scenarios, timestamps, engine metadata and optional context. Review sharing settings and service terms before registration.	CAPI dan Console dapat bertukar IP deteksi, skenario, timestamp, metadata engine, dan konteks opsional. Tinjau pengaturan berbagi dan ketentuan layanan sebelum registrasi.
+securityUi.noRights	Credentials on disk do not prove remote enrollment, an active subscription or feed redistribution rights.	Kredensial di disk bukan bukti enrollment jarak jauh, langganan aktif, atau hak redistribusi feed.
+securityUi.disabledSharing	Stored sharing preferences do not mean sharing is active when CAPI is disabled.	Preferensi berbagi yang tersimpan tidak berarti berbagi aktif saat CAPI dinonaktifkan.
+securityUi.noNativeSync	Authoritative CAPI last-pull/error instrumentation is missing from official v1.8.1. No sync time is invented.	Instrumentasi resmi penarikan terakhir/error CAPI belum ada pada v1.8.1. Waktu sinkronisasi tidak dikarang.
+securityUi.appsec	AppSec and WAF	AppSec dan WAF
+securityUi.compatibility	Engine compatibility	Kompatibilitas engine
+securityUi.installedRules	Installed AppSec rules	Rule AppSec terpasang
+securityUi.installedConfigs	Installed AppSec configurations	Konfigurasi AppSec terpasang
+securityUi.acquisition	AppSec acquisition	Acquisition AppSec
+securityUi.forwarding	Request forwarding	Penerusan request
+securityUi.networkEnforcement	Network enforcement	Enforcement jaringan
+securityUi.appsecStages	Rules installed, requests inspected and traffic blocked are separate evidence stages. A bouncer API pull does not prove forwarding.	Rule terpasang, request diperiksa, dan trafik diblokir adalah tahap bukti berbeda. Penarikan API bouncer bukan bukti penerusan request.
+securityUi.latency	Cumulative AppSec latency	Latensi AppSec kumulatif
+securityUi.latencyHint	Mean seconds from native histogram sums/counts, when available. No percentile or current latency is invented.	Rata-rata detik dihitung dari jumlah/count histogram native jika tersedia. Tidak ada persentil atau latensi terkini yang dikarang.
+securityUi.appsecPlan	Prepare Nginx AppSec plan	Siapkan rencana AppSec Nginx
+securityUi.components	Remediation components	Komponen remediasi
+securityUi.componentHint	Registration and last API pull are observations, not proof of enforcement. Docker CrowdSec does not automatically protect the Windows host or LAN.	Registrasi dan penarikan API terakhir adalah pengamatan, bukan bukti enforcement. Docker CrowdSec tidak otomatis melindungi host Windows atau LAN.
+securityUi.componentUnavailable	Bouncer observation unavailable.	Pengamatan bouncer tidak tersedia.
+securityUi.noComponents	No registered remediation components returned.	Tidak ada komponen remediasi terdaftar yang dikembalikan.
+securityUi.componentTable	Remediation component inventory	Inventaris komponen remediasi
+securityUi.component	Component	Komponen
+securityUi.typeVersion	Type / version	Jenis / versi
+securityUi.lastPull	Last API pull	Penarikan API terakhir
+securityUi.pullHint	Recent means within two minutes of the sample; this is not a configured SLA or live connectivity test.	Baru berarti dalam dua menit dari sampel; ini bukan SLA terkonfigurasi atau uji konektivitas langsung.
+securityUi.componentPlan	Prepare component review plan	Siapkan rencana tinjauan komponen
+securityUi.coverage	Upstream capability coverage	Cakupan kapabilitas upstream
+securityUi.compatHint	Compatibility and integration availability do not mean a capability is enabled. Master-only native changes need an audited stable release or separately reviewed backport.	Kompatibilitas dan ketersediaan integrasi tidak berarti kapabilitas aktif. Perubahan native khusus master memerlukan rilis stabil yang diaudit atau backport yang ditinjau terpisah.
+securityUi.matrix	Capability matrix	Matriks kapabilitas
+securityUi.capability	Capability	Kapabilitas
+securityUi.baseline	Audited engine baseline	Baseline engine yang diaudit
+securityUi.integrationState	Integration state	Status integrasi
+securityUi.dependency	Dependency	Dependensi
+securityUi.workspace	Operator review workspace	Ruang tinjauan operator
+securityUi.planHint	Prepare a bounded plan. Activation needs a separate exact operator approval outside this browser.	Siapkan rencana terbatas. Aktivasi memerlukan persetujuan operator yang spesifik dan terpisah di luar browser ini.
+securityUi.integration	Integration	Integrasi
+securityUi.internalDecision	Internal decision	Keputusan internal
+securityUi.notifications	Notifications	Notifikasi
+securityUi.hubUpdate	Hub update	Update Hub
+securityUi.simulationName	Simulation	Simulasi
+securityUi.extraSource	Additional datasource	Datasource tambahan
+securityUi.upgradeCompat	Engine upgrade compatibility	Kompatibilitas upgrade engine
+securityUi.exactTarget	Exact target IP / CIDR	IP / CIDR target yang tepat
+securityUi.minutes	Duration in minutes	Durasi dalam menit
+securityUi.management	Protected management CIDRs	CIDR manajemen terlindungi
+securityUi.failMode	Failure mode	Mode kegagalan
+securityUi.failOpen	Fail open	Tetap meloloskan saat gagal
+securityUi.failClosed	Fail closed	Menolak saat gagal
+securityUi.sourceFamily	Datasource family	Kelompok datasource
+securityUi.planAck	I understand this prepares a plan only and does not authorize activation.	Saya memahami bahwa ini hanya menyiapkan rencana dan tidak mengizinkan aktivasi.
+securityUi.prepare	Prepare review plan	Siapkan rencana tinjauan
+securityUi.planNotApplied	This plan has not been applied. No activation endpoint is available in the Console.	Rencana ini belum diterapkan. Tidak ada endpoint aktivasi di Console.
+securityUi.reviewPhrase	Exact review phrase	Frasa tinjauan yang tepat
+securityUi.keepReceipt	Keep this receipt for separate operator review. It contains no API key.	Simpan receipt ini untuk tinjauan operator terpisah. Receipt tidak berisi API key.
+securityUi.closePlan	Close review plan	Tutup rencana tinjauan
+securityUi.refreshBudget	Observed {{value}}. Shared refresh is limited to one sample per 30 seconds.	Diamati {{value}}. Refresh bersama dibatasi satu sampel per 30 detik.
+securityUi.sourceTable	Source observation table	Tabel pengamatan sumber
+securityUi.budgetError	Security request budget exceeded. Wait before refreshing.	Batas permintaan keamanan terlampaui. Tunggu sebelum melakukan refresh.
+securityUi.observationError	Owned engine observation required.	Pengamatan engine milik instalasi diperlukan.
+securityUi.idempotencyError	Idempotency key belongs to another plan.	Kunci idempotensi terkait dengan rencana lain.
+securityUi.protectedInventory	Explicit management CIDR inventory required; public ownership is not assumed safe.	Inventaris CIDR manajemen yang eksplisit diperlukan; kepemilikan IP publik tidak dianggap otomatis aman.
+securityUi.reasonError	A specific bounded reason is required.	Alasan yang spesifik dengan panjang terbatas diperlukan.
+securityUi.durationError	Duration must be 1–1440 minutes.	Durasi harus 1–1440 menit.
+securityUi.versionShort	Version	Versi
+securityUi.reasonShort	Reason	Alasan
+securityUi.observationShort	Observation	Pengamatan
+securityUi.createdShort	Created	Dibuat
+securityUi.enabledValue	Enabled	Diaktifkan
+securityUi.disabledValue	Disabled	Dinonaktifkan
+securityUi.observedShort	Observed	Diamati
+securityUi.sharedRefresh	Shared refresh is limited to one sample per 30 seconds.	Refresh bersama dibatasi satu sampel per 30 detik.
+securityUi.notVerifiedValue	Not verified	Belum diverifikasi
+securityUi.clockSkew	Clock skew	Perbedaan jam
+securityUi.compiled	Compiled optional components	Komponen opsional yang dikompilasi
+securityUi.compiledHint	Compiled support does not prove host access or an active datasource.	Dukungan hasil kompilasi bukan bukti akses host atau datasource aktif.
+securityCap.identity.purpose	Owned engine identity, version, uptime and restart	Identitas, versi, durasi aktif, dan restart engine milik instalasi
+securityCap.identity.dependency	Docker local identity	Identitas Docker lokal
+securityCap.metrics.purpose	Acquisition, parser and scenario counters with reset-aware rates	Counter acquisition, parser, dan skenario dengan laju yang mengenali reset
+securityCap.metrics.dependency	Prometheus inside engine	Prometheus di dalam engine
+securityCap.alerts.purpose	Historical alert evidence and bounded detail	Bukti alert historis dan detail terbatas
+securityCap.alerts.dependency	Local API	Local API
+securityCap.decisions.purpose	Decision origin, expiry and simulation distinction	Asal, kedaluwarsa, dan perbedaan simulasi keputusan
+securityCap.decisions.dependency	Local API	Local API
+securityCap.hub.purpose	Collections, parsers, scenarios, contexts and postoverflows	Koleksi, parser, skenario, konteks, dan postoverflow
+securityCap.hub.dependency	Installed Hub inventory	Inventaris Hub terpasang
+securityCap.allowlists.purpose	Actual engine allowlists, separate from Guard-local policy	Allowlist engine sebenarnya, terpisah dari kebijakan lokal Guard
+securityCap.allowlists.dependency	Local API	Local API
+securityCap.capi.purpose	Community pull, credentials-presence and privacy configuration	Penarikan komunitas, keberadaan kredensial, dan konfigurasi privasi
+securityCap.capi.dependency	CAPI service and terms	Layanan dan ketentuan CAPI
+securityCap.subscriptions.purpose	Blocklist subscription and entitlement discovery	Penemuan langganan blocklist dan hak akses
+securityCap.subscriptions.dependency	External authorization and entitlement	Otorisasi eksternal dan hak akses
+securityCap.appsec.purpose	AppSec acquisition, rule inventory and actual counters	Acquisition AppSec, inventaris rule, dan counter sebenarnya
+securityCap.appsec.dependency	Hub rules and approved request forwarder	Rule Hub dan penerus request yang disetujui
+securityCap.challenge.purpose	Native bot-detection/challenge counters	Counter deteksi bot dan challenge native
+securityCap.challenge.dependency	AppSec rules and compatible bouncer	Rule AppSec dan bouncer kompatibel
+securityCap.bouncers.purpose	Registration, version and last pull	Registrasi, versi, dan penarikan terakhir
+securityCap.bouncers.dependency	Optional remediation component	Komponen remediasi opsional
+securityCap.usage.purpose	Component-reported remediation usage counters	Counter penggunaan remediasi yang dilaporkan komponen
+securityCap.usage.dependency	Reporting component; not end-to-end proof	Komponen pelapor; bukan bukti dari ujung ke ujung
+securityCap.machines.purpose	Log processor registration and heartbeat inventory	Registrasi pemroses log dan inventaris heartbeat
+securityCap.machines.dependency	Local database	Database lokal
+securityCap.simulation.purpose	Simulation configuration without enabling it	Konfigurasi simulasi tanpa mengaktifkannya
+securityCap.simulation.dependency	Engine configuration	Konfigurasi engine
+securityCap.profiles.purpose	Profile names and notification associations	Nama profil dan asosiasi notifikasi
+securityCap.profiles.dependency	Local profile configuration	Konfigurasi profil lokal
+securityCap.notifications.purpose	Notification integration readiness	Kesiapan integrasi notifikasi
+securityCap.notifications.dependency	Plugin credentials and possible outbound delivery	Kredensial plugin dan kemungkinan pengiriman keluar
+securityCap.datasources.purpose	File, syslog, journal, Docker, cloud, stream and platform source catalog	Katalog sumber file, syslog, journal, Docker, cloud, stream, dan platform
+securityCap.datasources.dependency	Build/platform-specific capabilities; explicit mounts/credentials	Kapabilitas khusus build/platform; mount dan kredensial eksplisit
+securityCap.cti.purpose	Optional CTI and PAPI intelligence	Intelijen CTI dan PAPI opsional
+securityCap.cti.dependency	API key and service terms	API key dan ketentuan layanan
+securityCap.explain.purpose	Parser diagnosis and Hub test workflow	Diagnosis parser dan alur uji Hub
+securityCap.explain.dependency	Explicit synthetic input; untrusted rule execution review	Input sintetis eksplisit; tinjauan eksekusi rule tidak tepercaya
+securityCap.support.purpose	Support bundle and privacy review workflow	Alur bundle dukungan dan tinjauan privasi
+securityCap.support.dependency	Sensitive configuration/logs; no automatic upload	Konfigurasi/log sensitif; tidak ada upload otomatis
+securityCap.engineActions.purpose	Typed decision create and exact owned reversal	Pembuatan keputusan bertipe dan pembalikan tepat milik JAGRATA
+securityCap.engineActions.dependency	Separate scoped operator grant; may trigger external enforcement	Grant operator terpisah dan terbatas; dapat memicu enforcement eksternal
+securityCap.masterBotCli.purpose	Known-bot matching and fingerprint CLI	Pencocokan bot dikenal dan CLI fingerprint
+securityCap.masterBotCli.dependency	Master-only CLI; native rule/data dependencies	CLI khusus master; dependensi rule/data native
+securityCap.masterWafHelpers.purpose	SkipProcessing, RateLimit and FlagSubmission helpers	Helper SkipProcessing, RateLimit, dan FlagSubmission
+securityCap.masterWafHelpers.dependency	Coraza and AppSec expression runtime	Coraza dan runtime ekspresi AppSec
+securityCap.masterFingerprint.purpose	Custom JS fingerprinting and partitioned challenge cookies	Fingerprint JS kustom dan cookie challenge terpartisi
+securityCap.masterFingerprint.dependency	Challenge protocol, protobuf, JS/WASM provenance	Asal protokol challenge, protobuf, dan JS/WASM
+securityCap.masterScores.purpose	Categorized AppSec request scores	Skor request AppSec berkategori
+securityCap.masterScores.dependency	Engine rule evaluation	Evaluasi rule engine
+securityCap.masterCapiMetrics.purpose	Authoritative CAPI last pull and pull error counters	Timestamp penarikan CAPI dan counter error otoritatif
+securityCap.masterCapiMetrics.dependency	Instrumented native CAPI client	Client CAPI native yang diinstrumentasi
+securityCap.masterFeatures.purpose	Native cs_features metric	Metrik native cs_features
+securityCap.masterFeatures.dependency	Engine instrumentation; Manager catalog is separately identified	Instrumentasi engine; katalog Manager diberi identitas terpisah
+securityCap.masterStream.purpose	Configurable decision-stream pagination/concurrency	Pagination dan konkurensi stream keputusan yang dapat dikonfigurasi
+securityCap.masterStream.dependency	LAPI server and compatible bouncers	Server LAPI dan bouncer kompatibel
+securityCap.masterTls.purpose	Native LAPI server certificate reload	Reload sertifikat server LAPI native
+securityCap.masterTls.dependency	LAPI TLS lifecycle; not Manager TLS	Lifecycle TLS LAPI; bukan TLS Manager
+securityCap.masterPipeline.purpose	Bounded asynchronous postoverflow processing	Pemrosesan postoverflow asinkron terbatas
+securityCap.masterPipeline.dependency	Pipeline concurrency and config contracts	Konkurensi pipeline dan kontrak konfigurasi
+securityCap.masterIngestion.purpose	File partial-line, Docker restart, syslog and VictoriaLogs fixes	Perbaikan baris parsial file, restart Docker, syslog, dan VictoriaLogs
+securityCap.masterIngestion.dependency	Native datasource implementation	Implementasi datasource native
+securityCap.masterDatabase.purpose	Simulated-decision suppression and alert filtering fixes	Perbaikan penekanan keputusan simulasi dan pemfilteran alert
+securityCap.masterDatabase.dependency	Database behavior and schema review	Perilaku database dan tinjauan skema
+securityCap.masterMetrics.purpose	Alert kind labels and deleted-series cleanup	Label jenis alert dan pembersihan seri yang dihapus
+securityCap.masterMetrics.dependency	Native metric instrumentation	Instrumentasi metrik native
+securityCap.masterGrok.purpose	Embedded optimized Grok and DNS/expression behavior	Grok tersemat yang dioptimalkan serta perilaku DNS/ekspresi
+securityCap.masterGrok.dependency	Go parser, helpers and dependency upgrades	Parser Go, helper, dan upgrade dependensi
+securityCap.managerTimezones.purpose	Localized timezone-aware presentation, equivalent to CLI display refinement	Presentasi zona waktu lokal, setara penyempurnaan tampilan CLI
+securityCap.managerTimezones.dependency	Implemented in Manager UI; original timestamps retained	Diimplementasikan di UI Manager; timestamp asli dipertahankan

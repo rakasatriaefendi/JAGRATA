@@ -1,0 +1,21 @@
+// Prepare a reviewable receipt candidate ONLY. Never writes runtime/console.
+import {readFile,writeFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {capture,out} from './preservation.ts';
+import {fingerprint} from '../../installer/state.ts';
+const before=JSON.parse(await readFile(join(out,'before.json'),'utf8')),after=await capture();
+for(const key of ['files','containers','inventory','health','packageHash','scripts'])assert.deepEqual(after[key],before[key],key+' preservation failed');
+const receipt=resolve('runtime/console/setup.json'),raw=await readFile(receipt,'utf8'),original=JSON.parse(raw),next=await fingerprint(resolve('.'));
+assert.equal(original.phase,'READY');assert.notEqual(original.fingerprint,next);
+const pattern=/("fingerprint"\s*:\s*")[a-f0-9]{64}("?)/g;assert.equal([...raw.matchAll(pattern)].length,1);
+const candidate=raw.replace(pattern,(_match,a,b)=>a+next+b);assert.deepEqual(JSON.parse(candidate),{...original,fingerprint:next});
+const hash=(x:any)=>createHash('sha256').update(x).digest('hex');
+assert.equal(hash(Buffer.from(raw)),before.files['runtime/console/setup.json']);
+await writeFile(join(out,'setup-fingerprint-candidate.json'),candidate,{flag:'wx',mode:0o600});
+const proposal={state:'PENDING_SEPARATE_APPROVAL',target:receipt,field:'fingerprint',expectedExistingSHA256:hash(Buffer.from(raw)),candidateSHA256:hash(Buffer.from(candidate)),previousFingerprint:original.fingerprint,reviewedSourceFingerprint:next,effect:'Accept the reviewed source revision in the existing setup receipt only. No setup invocation, dependencies, restart, credentials, TLS, identity, registration, ownership or other receipt-field changes. Must revalidate exact receipt/source hashes before any approved publication.'};
+await writeFile(join(out,'fingerprint-review.json'),JSON.stringify(proposal,null,2)+'\n',{flag:'wx',mode:0o600});
+await writeFile(join(out,'after-final.json'),JSON.stringify(after,null,2)+'\n',{flag:'wx',mode:0o600});
+const values=Object.values(after.files) as string[];
+console.log(JSON.stringify({application:after.health.state,url:after.health.url,sourceGate:after.sourceGate,hashedFiles:values.filter(v=>/^[a-f0-9]{64}$/.test(v)).length,unreadable:values.filter(v=>v.startsWith('UNREADABLE')).length,unfollowedLinks:values.filter(v=>v.startsWith('LINK_NOT_FOLLOWED')).length,activeStateFiles:Object.keys(after.files).filter(k=>k.startsWith('runtime/console/')).length,dockerInventory:Object.fromEntries(Object.entries(after.inventory).map(([k,v])=>[k,(v as any[]).length])),previousFingerprint:original.fingerprint,reviewedSourceFingerprint:next,actualReceiptWritten:false}));

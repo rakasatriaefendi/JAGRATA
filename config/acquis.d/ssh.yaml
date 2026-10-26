@@ -1,0 +1,8 @@
+# CrowdSec Guard — SSH acquisition (CS-00 lab)
+# Reads the synthetic SSH fixture mounted read-only inside the container.
+source: file
+poll_without_inotify: true
+filenames:
+  - /lab/logs/ssh/auth.log
+labels:
+  type: syslog

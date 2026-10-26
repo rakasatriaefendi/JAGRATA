@@ -1,0 +1,38 @@
+# CrowdSec Guard — working tree
+# runtime/ is the product's persistent, machine-local state. Never commit.
+runtime/
+node_modules/
+references/
+
+# Local compose overrides and secrets
+deploy/docker/.env
+deploy/docker/*.local.yaml
+config/installation.json
+config/installations/
+__pycache__/
+*.pyc
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+
+# JAGRATA: local/private material not included in GitHub
+/docs/
+/references/
+/.cline/
+/runtime/
+/node_modules/
+/coverage/
+/dist/
+/build/
+**/.env
+**/.env.*
+!**/.env.example
+**/.env.local
+**/.env.production
+**/.DS_Store
+**/Thumbs.db

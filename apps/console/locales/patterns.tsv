@@ -1,0 +1,33 @@
+dynamic.observedAt	Last observation {{date}}	Pengamatan terakhir {{date}}
+dynamic.selectAlert	Select alert {{id}}	Pilih peringatan {{id}}
+dynamic.alertId	Alert #{{id}}	Peringatan #{{id}}
+dynamic.matching	{{count}} matching · {{selected}} selected in observed window	{{count}} cocok · {{selected}} dipilih dalam jendela pengamatan
+dynamic.page	Page {{page}} of {{total}}	Halaman {{page}} dari {{total}}
+dynamic.configured	{{count}} configured sources	{{count}} sumber terdaftar
+dynamic.installation	Installation: {{id}}	Instalasi: {{id}}
+dynamic.container	Container: {{path}}	Container: {{path}}
+dynamic.processed	{{reads}} read / {{parsed}} parsed	{{reads}} dibaca / {{parsed}} terurai
+dynamic.cumulative	Cumulative; observed {{date}}	Kumulatif; diamati {{date}}
+dynamic.associated	Associated alert IDs:	ID peringatan terkait:
+dynamic.parserSeries	{{count}} parser series · inspect counters	{{count}} seri parser · periksa penghitung
+dynamic.enabledScenarios	{{count}} enabled scenarios	{{count}} skenario aktif
+dynamic.sourceScope	Source {{scope}}	Sumber {{scope}}
+dynamic.showEvents	Showing {{count}} returned events, capped at 100. Metadata uses a server allowlist.	Menampilkan {{count}} kejadian yang dikembalikan, dibatasi 100. Metadata memakai daftar bidang yang diizinkan server.
+dynamic.event	Event {{number}} · {{timestamp}}	Kejadian {{number}} · {{timestamp}}
+dynamic.decisionEvidence	This alert records detected behavior. {{count}} decision record(s) were returned. A decision record does not prove that traffic was blocked.	Peringatan ini mencatat perilaku yang terdeteksi. {{count}} catatan keputusan dikembalikan. Catatan keputusan tidak membuktikan bahwa lalu lintas diblokir.
+dynamic.duration	· stored duration {{duration}} (not a live countdown)	· durasi tersimpan {{duration}} (bukan hitung mundur langsung)
+dynamic.copied	Copied {{ip}} to clipboard.	IP {{ip}} disalin ke papan klip.
+dynamic.decisionObservation	Observed {{date}}. {{note}}	Diamati {{date}}. {{note}}
+dynamic.lastDate	Observed {{date}}.	Diamati {{date}}.
+dynamic.remaining	Remaining at observation: {{duration}}	Sisa durasi saat diamati: {{duration}}
+dynamic.expires	Estimated expiry: {{date}}	Perkiraan berakhir: {{date}}
+dynamic.alertCreated	Alert created: {{date}}	Peringatan dibuat: {{date}}
+dynamic.revision	Revision {{revision}}. Public management IPs and critical infrastructure must be registered explicitly.	Revisi {{revision}}. IP manajemen publik dan infrastruktur penting harus didaftarkan secara eksplisit.
+dynamic.auditBound	Showing the latest {{count}} of {{total}} retained records. Capacity 2,000; actions stop when full. Local hash chain detects accidental alteration, not tampering by the host administrator.	Menampilkan {{count}} terbaru dari {{total}} catatan tersimpan. Kapasitas 2.000; tindakan berhenti saat penuh. Rantai hash lokal mendeteksi perubahan tidak sengaja, bukan manipulasi oleh administrator host.
+dynamic.action	JAGRATA action	Tindakan JAGRATA
+dynamic.localUnavailable	Local policy unavailable: {{error}}	Kebijakan lokal tidak tersedia: {{error}}
+dynamic.decisionsUnavailable	Decisions unavailable: {{error}}. No zero count or sample data substituted.	Keputusan tidak tersedia: {{error}}. Tidak ada penggantian dengan jumlah nol atau data contoh.
+dynamic.refreshFailed	Refresh failed. Previously observed data is retained and STALE. {{error}}	Pembaruan gagal. Data sebelumnya disimpan dan berstatus STALE (kedaluwarsa). {{error}}
+dynamic.onlySome	At most the latest 200 local alerts; CAPI alerts excluded.	Maksimal 200 peringatan lokal terbaru; peringatan CAPI tidak disertakan.
+dynamic.alertCount	{{date}}: {{count}} alerts	{{date}}: {{count}} peringatan
+dynamic.confirmFailure	{{result}}. Refresh and create a new preview.	{{result}}. Perbarui dan buat pratinjau baru.

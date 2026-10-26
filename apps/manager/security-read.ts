@@ -1,0 +1,51 @@
+// Fixed read contracts audited against official v1.8.1. No browser-supplied argv/URL.
+import {UpstreamError} from './adapter.ts';
+export const CONFIG_PROJECTION='{capiConfigured: Config.API.Server.OnlineClient != nil, capiCredentialsPresent: Config.API.Server.OnlineClient != nil && Config.API.Server.OnlineClient.Credentials != nil, capiSharing: Config.API.Server.OnlineClient == nil ? false : Config.API.Server.OnlineClient.Sharing, communityPull: Config.API.Server.OnlineClient == nil ? false : Config.API.Server.OnlineClient.PullConfig.Community, blocklistPull: Config.API.Server.OnlineClient == nil ? false : Config.API.Server.OnlineClient.PullConfig.Blocklists, console: Config.API.Server.ConsoleConfig, acquisitions: Config.Crowdsec.AcquisitionFiles, acquisitionDirectory: Config.Crowdsec.AcquisitionDirPath, acquisitionFile: Config.Crowdsec.AcquisitionFilePath, simulation: Config.Crowdsec.SimulationConfig, prometheusEnabled: Config.Prometheus.Enabled, prometheusPort: Config.Prometheus.ListenPort, profiles: map(Config.API.Server.Profiles, {#.Name}), notifications: map(Config.API.Server.Profiles, {#.Notifications})}';
+export const READS:Record<string,readonly string[]>={
+ version:['version'],help:['--help'],metrics:['metrics','show','-o','json'],metricTypes:['metrics','list','-o','json'],
+ config:['config','show','--key',CONFIG_PROJECTION,'-o','json'],hub:['hub','list','-o','json'],
+ bouncers:['bouncers','list','-o','json'],machines:['machines','list','-o','json'],allowlists:['allowlists','list','-o','json'],
+ decisions:['decisions','list','--limit','201','-o','json'],
+ acquisitionFiles:[],
+ privacyFile:[],profileFile:[],
+ prometheus:[],
+};
+export async function fixedRead(adapter:any,operation:string){if(!Object.hasOwn(READS,operation))throw new UpstreamError('Security operation not permitted');if(operation==='prometheus'){const response=await adapter.call(['exec','-i',adapter.config.containerId,'nc','-w','2','127.0.0.1','6060'],'GET /metrics HTTP/1.0\r\nHost: 127.0.0.1\r\nConnection: close\r\n\r\n');const split=response.indexOf('\r\n\r\n');if(split<0||!/^HTTP\/1\.[01] 200(?: |\r)/.test(response))throw new UpstreamError('Fixed metrics endpoint did not return 200');return response.slice(split+4)}if(operation==='acquisitionFiles')return adapter.call(['exec',adapter.config.containerId,'find','/etc/crowdsec/acquis.d','-maxdepth','1','-type','f','-name','*.yaml']);if(operation==='privacyFile'||operation==='profileFile')return adapter.call(['exec',adapter.config.containerId,'cat','--',operation==='privacyFile'?'/etc/crowdsec/console.yaml':'/etc/crowdsec/profiles.yaml']);return adapter.call(['exec',adapter.config.containerId,'cscli',...READS[operation]])}
+export function prometheusExtras(raw:string){
+ if(Buffer.byteLength(raw)>2*1024*1024)throw new UpstreamError('Prometheus response limit');
+ const result:any={features:{},capiLastPull:null,capiErrors:{},latency:{}};let n=0;
+ for(const line of raw.split(/\r?\n/)){if(++n>30000)throw new UpstreamError('Prometheus series limit');if(!/^cs_(?:features|capi_|appsec_(?:parsing|inband_parsing|outband_parsing)_time_seconds)/.test(line))continue;
+  const m=line.match(/^(cs_[a-z_]+)(?:\{([^}]*)\})?\s+([0-9.eE+-]+)(?:\s+\d+)?$/);if(!m)continue;const value=Number(m[3]);if(!Number.isFinite(value)||value<0)throw new UpstreamError('Invalid Prometheus value');const labels:any={};for(const l of (m[2]||'').matchAll(/([a-z_]+)="((?:\\.|[^"\\])*)"/g))if(['feature','operation','appsec_engine'].includes(l[1]))labels[l[1]]=boundedText(JSON.parse('"'+l[2]+'"'),128);
+  if(m[1]==='cs_features'&&['lapi','capi','log_processor','waf','bot_detection','papi'].includes(labels.feature)&&[0,1].includes(value))result.features[labels.feature]=value===1;
+  if(m[1]==='cs_capi_last_pull_timestamp')result.capiLastPull=value===0?null:value<4102444800?new Date(value*1000).toISOString():null;
+  if(m[1]==='cs_capi_errors_total'&&['pull','push','metrics'].includes(labels.operation))result.capiErrors[labels.operation]=value;
+  const duration=m[1].match(/^(cs_appsec_(?:parsing|inband_parsing|outband_parsing)_time_seconds)_(sum|count)$/);if(duration){const k=duration[1]+':'+(labels.appsec_engine||'all');result.latency[k]||={sum:null,count:null};result.latency[k][duration[2]]=value}
+ }
+ for(const v of Object.values(result.latency) as any[])v.meanSeconds=v.count>0&&v.sum!==null?v.sum/v.count:null;
+ return result;
+}
+export function configPath(value:any){if(typeof value!=='string'||value.length>240||!/^\/etc\/crowdsec\/(?:acquis\.ya?ml|acquis\.d\/[a-zA-Z0-9_.-]+\.ya?ml)$/.test(value)||value.includes('..'))throw new UpstreamError('Acquisition configuration path rejected');return value}
+export async function readAcquisition(adapter:any,path:string){return adapter.call(['exec',adapter.config.containerId,'cat','--',configPath(path)])}
+export function acquisitionDefinition(path:string,raw:string){
+ if(Buffer.byteLength(raw)>65536)throw new UpstreamError('Acquisition configuration too large');
+ if(raw.trim().startsWith('{')){const v=JSON.parse(raw);const source=v.source||(v.filename||v.filenames?'file':null);const files=Array.isArray(v.filenames)?v.filenames:v.filename?[v.filename]:[];return {configurationPath:path,source:['file','appsec','syslog','journalctl','docker','http','kubernetes','kubernetesaudit','s3','cloudwatch','kinesis','kafka','loki','victorialogs','wineventlog'].includes(source)?source:null,empty:Object.keys(v).length===0,listenAddress:source==='appsec'&&typeof v.listen_addr==='string'?boundedText(v.listen_addr,128):null,appsecConfig:source==='appsec'&&typeof v.appsec_config==='string'?boundedText(v.appsec_config,180):null,filenames:array(files,32).map(x=>boundedText(x,1024)),validation:'JSON_FIELD_INVENTORY_ONLY',complexYaml:false}}
+ // Deliberately conservative scalar subset. Complex YAML is not claimed validated.
+ const lines=raw.split(/\r?\n/),get=(key:string)=>{const values=lines.map(l=>l.match(new RegExp('^'+key+':\\s*["\']?([a-zA-Z0-9_./:-]+)["\']?\\s*(?:#.*)?$'))?.[1]).filter(Boolean);return values.length===1?values[0]:null};
+ const source=get('source')||(/^filenames?:/m.test(raw)?'file':null),listen=get('listen_addr'),appsec=get('appsec_config');
+ const filenames=lines.map(l=>l.match(/^\s+-\s*["']?(\/[^\s"']+)["']?\s*$/)?.[1]).filter(Boolean).slice(0,32);
+ return {configurationPath:path,source,empty:lines.every(l=>!l.trim()||l.trim().startsWith('#')||l.trim()==='---'),listenAddress:source==='appsec'?listen:null,appsecConfig:source==='appsec'?appsec:null,filenames,validation:'SCALAR_INVENTORY_ONLY',complexYaml:lines.some(l=>/^---|^[^#]*[&*!]|\$\{/.test(l))};
+}
+export const boundedText=(value:any,max=256)=>{if(typeof value!=='string'||value.length>max||/[\x00-\x1f\x7f]/.test(value))throw new UpstreamError('Invalid security response');return value};
+export const instant=(v:any)=>v===null||v===undefined?null:typeof v==='string'&&/(?:Z|[+-]\d\d:\d\d)$/.test(v)&&Number.isFinite(Date.parse(v))?v:(()=>{throw new UpstreamError('Invalid security timestamp')})();
+export function array(v:any,max=500){if(!Array.isArray(v)||v.length>max)throw new UpstreamError('Invalid inventory bounds');return v}
+export function metricTree(v:any,depth=0,budget={n:0}):any{
+ if(++budget.n>20000||depth>6)throw new UpstreamError('Metric cardinality limit');
+ if(typeof v==='number'){if(!Number.isFinite(v)||v<0||v>Number.MAX_SAFE_INTEGER)throw new UpstreamError('Invalid metric');return v}
+ if(v===null)return null;if(Array.isArray(v))return array(v).map(x=>metricTree(x,depth+1,budget));
+ if(!v||typeof v!=='object')throw new UpstreamError('Unknown metric schema');
+ const entries=Object.entries(v);if(entries.length>1000)throw new UpstreamError('Metric series limit');
+ return Object.fromEntries(entries.map(([k,x])=>[boundedText(k),metricTree(x,depth+1,budget)]));
+}
+export function bouncerInventory(raw:any,at:number){return array(raw).map(b=>{if(typeof b.revoked!=='boolean')throw new UpstreamError();const lastPull=instant(b.last_pull);return {name:boundedText(b.name,128),type:boundedText(b.type||'',128),version:boundedText(b.version||'',128),ip:boundedText(b.ip_address||'',128),revoked:b.revoked,lastPull,registration:b.revoked?'REVOKED':'REGISTERED',freshness:!lastPull?'NEVER_OBSERVED':at<Date.parse(lastPull)?'CLOCK_SKEW':at-Date.parse(lastPull)<120000?'RECENT_PULL':'STALE_PULL',enforcement:'NOT_VERIFIED',targetIntegration:'UNKNOWN',decisionRetrieval:'PULL_TIMESTAMP_ONLY'}})}
+export function hubInventory(raw:any){if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new UpstreamError();const result:any={};for(const k of ['collections','parsers','scenarios','postoverflows','contexts','appsec-configs','appsec-rules']){const items=raw[k];if(items===undefined){result[k]=null;continue}result[k]=array(items,1000).map(x=>({name:boundedText(x.name,180),status:boundedText(x.status||'',64),version:boundedText(x.local_version||x.version||'',64),tainted:x.tainted===true,installed:x.installed===true||['enabled','disabled','installed'].includes(x.status)}))}return result}
+export function configInventory(v:any){if(!v||typeof v!=='object'||typeof v.capiConfigured!=='boolean'||typeof v.capiCredentialsPresent!=='boolean')throw new UpstreamError('Unknown config projection');const bool=(x:any)=>typeof x==='boolean'?x:null;const console=v.console||{};return {capiConfigured:v.capiConfigured,capiCredentialsPresent:v.capiConfigured&&!v.capiCredentialsPresent?null:v.capiCredentialsPresent,capiSharing:bool(v.capiSharing),communityPull:bool(v.communityPull),blocklistPull:bool(v.blocklistPull),sharing:{manual:bool(console.ShareManualDecisions),tainted:bool(console.ShareTaintedScenarios),custom:bool(console.ShareCustomScenarios),context:bool(console.ShareContext)},acquisitions:array(v.acquisitions||[],64).map(configPath),acquisitionFile:v.acquisitionFile?configPath(v.acquisitionFile):null,acquisitionDirectory:v.acquisitionDirectory?boundedText(v.acquisitionDirectory,240):null,simulation:{enabled:bool(v.simulation?.Simulation),exclusions:array(v.simulation?.Exclusions||[],500).map(x=>boundedText(x,180))},prometheusEnabled:bool(v.prometheusEnabled),prometheusPort:Number.isInteger(v.prometheusPort)?v.prometheusPort:null,profiles:array(v.profiles||[],100).map(x=>boundedText(x,128)),notificationNames:array(v.notifications||[],100).flatMap(x=>x===null?[]:array(x,100)).map(x=>boundedText(x,128))}}

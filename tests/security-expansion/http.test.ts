@@ -1,0 +1,23 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import http from 'node:http';
+import {mkdir,mkdtemp} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {bootstrap,Auth} from '../../apps/manager/auth.ts';
+import {handler} from '../../apps/manager/server.ts';
+import {fixture} from './security.test.ts';
+test('security routes preserve authentication, CSRF, typed plans, rate limits and no activation endpoint',async t=>{
+ const f=fixture(),root=resolve('runtime/qa-security-expansion-unit');await mkdir(root,{recursive:true});const dir=await mkdtemp(join(root,'http-')),password='Isolated-security-route-test-password';await bootstrap(join(dir,'admin.json'),'auditor',password);const auth=await Auth.load(join(dir,'admin.json'));
+ let route:any;const server=http.createServer((req,res)=>route(req,res));await new Promise<void>(r=>server.listen(0,'127.0.0.1',r));t.after(()=>new Promise<void>(r=>server.close(()=>r())));const origin='http://127.0.0.1:'+(server.address() as any).port;route=handler({auth,adapter:f.adapter,origin,security:f.platform,securityPlans:f.plans});
+ assert.equal((await fetch(origin+'/api/security')).status,401);
+ const login=await fetch(origin+'/api/login',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json','X-Guard-Login':'1'},body:JSON.stringify({username:'auditor',password})});assert.equal(login.status,200);const cookie=login.headers.get('set-cookie')!.split(';')[0],csrf=(await login.json()).csrf,headers={Origin:origin,Cookie:cookie,'Content-Type':'application/json','X-CSRF-Token':csrf};
+ assert.equal((await fetch(origin+'/api/security/plan',{method:'POST',headers:{...headers,'X-CSRF-Token':'wrong'},body:'{}'})).status,403);
+ assert.equal((await fetch(origin+'/api/security/plan',{method:'POST',headers:{...headers,Origin:'https://attacker.invalid'},body:'{}'})).status,403);
+ const observed=await fetch(origin+'/api/security',{headers:{Cookie:cookie}});assert.equal(observed.status,200);assert(observed.headers.get('content-security-policy')?.includes("default-src 'none'"));const value=await observed.json();assert.equal(value.community.state,'BLOCKLIST_DISABLED');
+ const plan=await fetch(origin+'/api/security/plan',{method:'POST',headers,body:JSON.stringify({kind:'community',sharing:false,idempotencyKey:'e'.repeat(32)})});assert.equal(plan.status,200);assert.equal((await plan.json()).executable,false);
+ for(const path of ['/api/security/apply','/api/security/activate','/api/security/grant','/api/security/external-status'])assert.equal((await fetch(origin+path,{method:'POST',headers,body:'{}'})).status,404);
+ const invalid=await fetch(origin+'/api/security/plan',{method:'POST',headers,body:JSON.stringify({kind:'community',sharing:false,idempotencyKey:'d'.repeat(32),command:'docker system prune -f'})});assert.equal(invalid.status,400);
+ for(let i=0;i<10;i++)assert.equal((await fetch(origin+'/api/security',{headers:{Cookie:cookie}})).status,200);
+ assert.equal((await fetch(origin+'/api/security',{headers:{Cookie:cookie}})).status,200);assert.equal((await fetch(origin+'/api/security',{headers:{Cookie:cookie}})).status,429);
+ assert(!f.calls.some(a=>a.includes('add')||a.includes('register')||a.includes('delete')||a.includes('prune')));
+});

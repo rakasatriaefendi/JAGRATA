@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "description": "Template defaults; setup supplies unique identity and validates every field.",
+  "port": 44331,
+  "listenHost": "127.0.0.1",
+  "engineMode": "explicit-existing-read-only",
+  "stateDirectory": "runtime/console"
+}
