@@ -1,4 +1,4 @@
-# CrowdSec Guard — local Security Console
+# JAGRATA - Always Awake
 
 Independent, self-hosted security console with local administrator login and a bounded,
 read-only CrowdSec adapter. CS-04 adds administrator-managed SSH/Nginx file
